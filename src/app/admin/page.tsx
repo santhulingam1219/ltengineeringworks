@@ -13,6 +13,7 @@ import {
 } from "@phosphor-icons/react/dist/ssr";
 import { formatDate } from "@/lib/utils";
 import { AnalyticsVisualizer } from "@/components/admin/AnalyticsVisualizer";
+import { AdminAppInstallBanner } from "@/components/admin/AdminAppInstallBanner";
 
 export const revalidate = 0; // Dynamic real-time dashboard
 
@@ -86,9 +87,12 @@ export default async function AdminDashboardPage() {
   ];
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-6 sm:space-y-8">
+      {/* Mobile PWA App Installation Helper */}
+      <AdminAppInstallBanner />
+
       {/* Welcome Banner */}
-      <div className="bg-slate-900 text-white p-6 sm:p-8 rounded-sm border border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-sm">
+      <div className="bg-slate-900 text-white p-5 sm:p-8 rounded-sm border border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-sm">
         <div className="space-y-1">
           <span className="text-xs font-mono font-bold text-amber-400 uppercase tracking-wider">
             Overview Dashboard

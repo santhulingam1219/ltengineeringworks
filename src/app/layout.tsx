@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Barlow, Barlow_Condensed, Manrope, JetBrains_Mono } from "next/font/google";
 import "@/styles/globals.css";
+import { ServiceWorkerRegister } from "@/components/ServiceWorkerRegister";
 
 const barlow = Barlow({
   weight: ["400", "500", "600", "700", "800"],
@@ -58,6 +59,12 @@ export const metadata: Metadata = {
     description:
       "Executing heavy industrial engineering, structural fabrication, piping, and skilled workforce mobilization across Paradeep and Eastern India.",
   },
+  manifest: "/manifest.json",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "black-translucent",
+    title: "LT Admin",
+  },
 };
 
 export default function RootLayout({
@@ -71,6 +78,7 @@ export default function RootLayout({
       className={`${barlow.variable} ${barlowCondensed.variable} ${manrope.variable} ${jetbrainsMono.variable} scroll-smooth`}
     >
       <body className="min-h-screen bg-[#F8FAFC] text-slate-900 flex flex-col font-sans antialiased selection:bg-amber-500 selection:text-slate-950">
+        <ServiceWorkerRegister />
         {children}
       </body>
     </html>

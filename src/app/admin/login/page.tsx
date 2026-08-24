@@ -1,8 +1,8 @@
 "use client";
 
-import { useActionState } from "react";
+import { useActionState, useState } from "react";
 import { loginAdminAction, LoginResult } from "../actions/authActions";
-import { LockKey, EnvelopeSimple, ShieldCheck, ArrowRight } from "@phosphor-icons/react";
+import { LockKey, EnvelopeSimple, ShieldCheck, ArrowRight, Eye, EyeSlash } from "@phosphor-icons/react";
 import Link from "next/link";
 
 const initialState: LoginResult = {
@@ -11,6 +11,7 @@ const initialState: LoginResult = {
 
 export default function AdminLoginPage() {
   const [state, formAction, isPending] = useActionState(loginAdminAction, initialState);
+  const [showPassword, setShowPassword] = useState(false);
 
   return (
     <div className="min-h-screen bg-[#0B1120] flex flex-col justify-center py-12 sm:px-6 lg:px-8 relative overflow-hidden text-slate-100">
@@ -65,8 +66,8 @@ export default function AdminLoginPage() {
                   type="email"
                   name="email"
                   required
-                  defaultValue="admin@ltengineeringworks.com"
-                  placeholder="admin@ltengineeringworks.com"
+                  autoComplete="username"
+                  placeholder="name@ltengineeringworks.com"
                   className="block w-full pl-9 pr-3 py-2.5 bg-slate-950 border border-slate-700 rounded-sm text-white placeholder-slate-500 text-sm font-sans focus:outline-none focus:ring-1 focus:ring-amber-500 focus:border-amber-500"
                 />
               </div>
@@ -81,13 +82,25 @@ export default function AdminLoginPage() {
                   <LockKey className="w-4 h-4" />
                 </div>
                 <input
-                  type="password"
+                  type={showPassword ? "text" : "password"}
                   name="password"
                   required
-                  defaultValue="Admin@LT2026!"
-                  placeholder="••••••••••••"
-                  className="block w-full pl-9 pr-3 py-2.5 bg-slate-950 border border-slate-700 rounded-sm text-white placeholder-slate-500 text-sm font-sans focus:outline-none focus:ring-1 focus:ring-amber-500 focus:border-amber-500"
+                  autoComplete="current-password"
+                  placeholder="Enter your password"
+                  className="block w-full pl-9 pr-10 py-2.5 bg-slate-950 border border-slate-700 rounded-sm text-white placeholder-slate-500 text-sm font-sans focus:outline-none focus:ring-1 focus:ring-amber-500 focus:border-amber-500"
                 />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute inset-y-0 right-0 pr-3 flex items-center text-slate-400 hover:text-amber-400 transition-colors cursor-pointer"
+                  aria-label={showPassword ? "Hide password" : "Show password"}
+                >
+                  {showPassword ? (
+                    <EyeSlash className="w-4 h-4" weight="bold" />
+                  ) : (
+                    <Eye className="w-4 h-4" weight="bold" />
+                  )}
+                </button>
               </div>
             </div>
 

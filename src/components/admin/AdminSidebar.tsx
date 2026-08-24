@@ -39,7 +39,7 @@ export function AdminSidebar({ userRole }: { userRole?: string }) {
   ];
 
   return (
-    <aside className="w-64 bg-[#0B1120] text-slate-300 flex flex-col flex-shrink-0 border-r border-slate-800 min-h-screen">
+    <aside className="hidden md:flex w-64 bg-[#0B1120] text-slate-300 flex-col flex-shrink-0 border-r border-slate-800 min-h-screen">
       {/* Brand Header */}
       <div className="p-5 border-b border-slate-800 flex items-center justify-between">
         <Link href="/admin" className="flex items-center gap-3">
