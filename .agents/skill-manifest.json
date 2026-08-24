@@ -1,0 +1,19 @@
+{
+  "profile": "saas",
+  "installedSkills": [
+    "design-taste-frontend",
+    "taste-skill",
+    "ui-ux-core",
+    "skill-error-handling",
+    "skill-postgres-best-practices",
+    "skill-nextjs-best-practices",
+    "skill-security-auditor",
+    "product-manager",
+    "mvp-tech-stack-wizard",
+    "ux-designer"
+  ],
+  "localOverrides": {
+    "verbosity": "compact",
+    "astValidatorStrictness": "high"
+  }
+}

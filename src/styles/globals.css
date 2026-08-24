@@ -1,0 +1,99 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --font-heading: 'Barlow', 'Barlow Condensed', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --font-sans: 'Manrope', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+
+    /* Industrial Engineering Palette */
+    --color-slate-canvas: #0b1120;
+    --color-slate-card: #1e293b;
+    --color-slate-border: #334155;
+    
+    --color-light-canvas: #f8fafc;
+    --color-light-card: #ffffff;
+    --color-light-border: #e2e8f0;
+
+    --color-industrial-amber: #d97706;
+    --color-industrial-amber-hover: #b45309;
+    --color-industrial-amber-glow: #f59e0b;
+
+    --color-engineering-blue: #1d4ed8;
+    --color-engineering-blue-hover: #1e40af;
+
+    --color-precision-green: #059669;
+    --color-alert-red: #dc2626;
+  }
+
+  body {
+    font-family: var(--font-sans);
+    background-color: var(--color-light-canvas);
+    color: #0f172a;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+    letter-spacing: -0.02em;
+    font-weight: 700;
+  }
+}
+
+/* Custom Technical Utility Classes */
+.font-heading {
+  font-family: var(--font-heading);
+}
+
+.font-mono-code {
+  font-family: var(--font-mono);
+}
+
+/* Industrial Precision Borders */
+.industrial-border {
+  border: 1px solid var(--color-light-border);
+}
+
+.industrial-border-dark {
+  border: 1px solid var(--color-slate-border);
+}
+
+/* Tactile Button Feedback */
+.btn-tactile:active {
+  transform: scale(0.98);
+}
+
+/* Technical Grid Pattern Overlay */
+.technical-grid {
+  background-size: 32px 32px;
+  background-image: 
+    linear-gradient(to right, rgba(226, 232, 240, 0.4) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(226, 232, 240, 0.4) 1px, transparent 1px);
+}
+
+.technical-grid-dark {
+  background-size: 32px 32px;
+  background-image: 
+    linear-gradient(to right, rgba(51, 65, 85, 0.3) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(51, 65, 85, 0.3) 1px, transparent 1px);
+}
+
+/* Custom Scrollbar for Data Tables & Overflow Containers */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 2px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}

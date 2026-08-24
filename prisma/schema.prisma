@@ -1,0 +1,520 @@
+// Prisma Schema for LT Engineering Works Corporate & Admin Management System
+// Single source of truth: project_prd.md
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// ----------------------------------------------------
+// 1. AUTHENTICATION, USERS & RBAC
+// ----------------------------------------------------
+
+model User {
+  id            String    @id @default(uuid())
+  email         String    @unique
+  passwordHash  String
+  fullName      String
+  phone         String?
+  roleId        String
+  role          Role      @relation(fields: [roleId], references: [id])
+  isActive      Boolean   @default(true)
+  lastLoginAt   DateTime?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  deletedAt     DateTime?
+
+  // Relations
+  activityLogs       ActivityLog[]
+  applicationNotes   ApplicationNote[]
+  enquiryNotes       EnquiryNote[]
+  uploadedMedia      MediaLibrary[]
+  authoredNews       NewsPost[]
+  assignedApps       Application[]     @relation("AssignedRecruiter")
+  assignedProjEnq    ProjectEnquiry[]  @relation("AssignedProjectEnquiry")
+  assignedManpowerEnq ManpowerEnquiry[] @relation("AssignedManpowerEnquiry")
+
+  @@index([email])
+  @@index([roleId])
+}
+
+model Role {
+  id          String           @id @default(uuid())
+  name        String           @unique // super_admin, content_manager, recruitment_manager, enquiry_manager, viewer
+  displayName String
+  description String?
+  isSystem    Boolean          @default(false)
+  createdAt   DateTime         @default(now())
+  updatedAt   DateTime         @updatedAt
+
+  users       User[]
+  permissions RolePermission[]
+}
+
+model Permission {
+  id          String           @id @default(uuid())
+  code        String           @unique // e.g. 'projects:create', 'applications:view'
+  name        String
+  module      String           // 'projects', 'vacancies', 'applications', 'enquiries', 'media', 'settings', 'users'
+  description String?
+
+  roles       RolePermission[]
+
+  @@index([module])
+}
+
+model RolePermission {
+  roleId       String
+  permissionId String
+  role         Role       @relation(fields: [roleId], references: [id], onDelete: Cascade)
+  permission   Permission @relation(fields: [permissionId], references: [id], onDelete: Cascade)
+
+  @@id([roleId, permissionId])
+}
+
+// ----------------------------------------------------
+// 2. PROJECT PORTFOLIO & CATEGORIES
+// ----------------------------------------------------
+
+model ProjectCategory {
+  id           String    @id @default(uuid())
+  name         String    @unique // Structural, Fabrication, Erection, Piping, Mechanical, Civil, Equipment, Manpower, Other
+  slug         String    @unique
+  description  String?
+  displayOrder Int       @default(0)
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+
+  projects     Project[]
+
+  @@index([slug])
+}
+
+model Project {
+  id               String           @id @default(uuid())
+  slug             String           @unique
+  name             String
+  clientName       String?
+  mainContractor   String?
+  location         String           // e.g. Paradeep, Odisha
+  industry         String?          // Industrial Plant, Marine, Refinery, Steel, etc.
+  projectType      String?          // Shutdown, EPC, Maintenance, Fabrication
+  categoryId       String
+  category         ProjectCategory  @relation(fields: [categoryId], references: [id])
+  startDate        DateTime?
+  completionDate   DateTime?
+  status           String           @default("completed") // completed, ongoing, upcoming
+  description      String
+  scopeOfWork      String?
+  servicesProvided String?          // JSON array of strings e.g. ["Fabrication", "Erection"]
+  manpowerDeployed String?          // e.g. "120+ skilled technicians"
+  duration         String?          // e.g. "6 Months"
+  isFeatured       Boolean          @default(false)
+  coverImageUrl    String?
+  displayOrder     Int              @default(0)
+  isPublished      Boolean          @default(true)
+  seoTitle         String?
+  seoDescription   String?
+  createdAt        DateTime         @default(now())
+  updatedAt        DateTime         @updatedAt
+  deletedAt        DateTime?
+
+  images           ProjectImage[]
+  documents        ProjectDocument[]
+
+  @@index([slug])
+  @@index([status])
+  @@index([isFeatured])
+  @@index([categoryId])
+}
+
+model ProjectImage {
+  id           String        @id @default(uuid())
+  projectId    String
+  project      Project       @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  mediaId      String?
+  media        MediaLibrary? @relation(fields: [mediaId], references: [id])
+  imageUrl     String
+  caption      String?
+  altText      String?
+  displayOrder Int           @default(0)
+  isCover      Boolean       @default(false)
+  createdAt    DateTime      @default(now())
+
+  @@index([projectId])
+}
+
+model ProjectDocument {
+  id        String   @id @default(uuid())
+  projectId String
+  project   Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  title     String
+  fileUrl   String
+  fileSize  String?
+  fileType  String?
+  createdAt DateTime @default(now())
+
+  @@index([projectId])
+}
+
+// ----------------------------------------------------
+// 3. SERVICES SYSTEM
+// ----------------------------------------------------
+
+model ServiceCategory {
+  id           String    @id @default(uuid())
+  name         String    @unique
+  slug         String    @unique
+  displayOrder Int       @default(0)
+  createdAt    DateTime  @default(now())
+
+  services     Service[]
+}
+
+model Service {
+  id               String           @id @default(uuid())
+  slug             String           @unique
+  name             String
+  categoryId       String?
+  category         ServiceCategory? @relation(fields: [categoryId], references: [id])
+  shortDescription String
+  fullDescription  String
+  iconName         String?          // Phosphor icon identifier
+  featuredImageUrl String?
+  gallery          String?          // JSON array of image URLs
+  displayOrder     Int              @default(0)
+  isPublished      Boolean          @default(true)
+  seoTitle         String?
+  seoDescription   String?
+  createdAt        DateTime         @default(now())
+  updatedAt        DateTime         @updatedAt
+
+  @@index([slug])
+  @@index([isPublished])
+}
+
+// ----------------------------------------------------
+// 4. CAREERS, VACANCIES & WORKER APPLICATIONS
+// ----------------------------------------------------
+
+model JobCategory {
+  id           String    @id @default(uuid())
+  name         String    @unique // Engineering, Supervisory, Fabrication & Fitting, Heavy Equipment, Operations, General
+  slug         String    @unique
+  displayOrder Int       @default(0)
+  createdAt    DateTime  @default(now())
+
+  vacancies    Vacancy[]
+}
+
+model Vacancy {
+  id                    String        @id @default(uuid())
+  jobId                 String        @unique // e.g. "LT-VAC-2026-001"
+  slug                  String        @unique
+  title                 String        // e.g. "Fabricator", "Fitter", "Supervisor"
+  projectName           String?       // Project identifier if applicable
+  department            String?
+  categoryId            String?
+  category              JobCategory?  @relation(fields: [categoryId], references: [id])
+  location              String        @default("Paradeep, Odisha")
+  openingsCount         Int           @default(1)
+  experienceMinYears    Int           @default(0)
+  experienceMaxYears    Int?
+  qualification         String?       // ITI / Diploma / B.Tech / Metric / Experience based
+  skillsRequired        String?       // JSON array of strings e.g. ["Arc Welding", "TIG", "Blueprint Reading"]
+  jobDescription        String
+  responsibilities      String?
+  employmentType        String        @default("Project Based") // Project Based, Contractual, Full-time
+  projectDuration       String?       // e.g. "6-12 Months"
+  salaryType            String        @default("Negotiable") // Negotiable, Fixed, Range, Confidential
+  salaryDisplay         String?       // e.g. "₹22,000 - ₹35,000 / Month"
+  accommodationProvided Boolean       @default(true)
+  foodProvided          Boolean       @default(false)
+  transportProvided     Boolean       @default(true)
+  joiningRequirement    String        @default("Immediate") // Immediate, Within 7 Days, Within 15 Days
+  genderRequirement     String?
+  ageRequirement        String?
+  deadlineDate          DateTime?
+  contactInstructions   String?
+  status                String        @default("published") // draft, published, paused, closed, expired, archived
+  isFeatured            Boolean       @default(false)
+  publishedAt           DateTime?     @default(now())
+  createdAt             DateTime      @default(now())
+  updatedAt             DateTime      @updatedAt
+  deletedAt             DateTime?
+
+  applications          Application[]
+
+  @@index([slug])
+  @@index([status])
+  @@index([jobId])
+  @@index([isFeatured])
+}
+
+model Application {
+  id                   String                @id @default(uuid())
+  applicationId        String                @unique // e.g. "LT-2026-000123"
+  vacancyId            String?
+  vacancy              Vacancy?              @relation(fields: [vacancyId], references: [id])
+  fullName             String
+  mobileNumber         String
+  altMobileNumber      String?
+  email                String?
+  currentLocation      String?
+  preferredLocation    String?
+  positionAppliedFor   String
+  yearsOfExperience    String?
+  qualification        String?
+  skills               String?
+  previousCompany      String?
+  joiningAvailability  String?
+  resumeFileUrl        String?
+  resumeFileName       String?
+  additionalInfo       String?
+  status               String                @default("new") // new, under_review, shortlisted, contacted, interview, selected, rejected, on_hold, joined, closed
+  assignedUserId       String?
+  assignedUser         User?                 @relation("AssignedRecruiter", fields: [assignedUserId], references: [id])
+  createdAt            DateTime              @default(now())
+  updatedAt            DateTime              @updatedAt
+  deletedAt            DateTime?
+
+  documents            ApplicationDocument[]
+  notes                ApplicationNote[]
+
+  @@index([applicationId])
+  @@index([status])
+  @@index([mobileNumber])
+  @@index([vacancyId])
+}
+
+model ApplicationDocument {
+  id            String      @id @default(uuid())
+  applicationId String
+  application   Application @relation(fields: [applicationId], references: [id], onDelete: Cascade)
+  documentType  String      // resume, certificate, id_proof, experience_letter
+  fileUrl       String
+  fileName      String
+  createdAt     DateTime    @default(now())
+
+  @@index([applicationId])
+}
+
+model ApplicationNote {
+  id            String      @id @default(uuid())
+  applicationId String
+  application   Application @relation(fields: [applicationId], references: [id], onDelete: Cascade)
+  userId        String
+  user          User        @relation(fields: [userId], references: [id])
+  noteText      String
+  createdAt     DateTime    @default(now())
+
+  @@index([applicationId])
+}
+
+// ----------------------------------------------------
+// 5. CLIENT PROJECT, MANPOWER & CONTACT ENQUIRIES
+// ----------------------------------------------------
+
+model ProjectEnquiry {
+  id                 String    @id @default(uuid())
+  enquiryId          String    @unique // e.g. "LT-PE-2026-0001"
+  companyName        String
+  contactPerson      String
+  designation        String?
+  phone              String
+  email              String?
+  projectLocation    String?
+  projectType        String?   // Shutdown, Fabrication, Erection, Complete Turnkey
+  requiredService    String?   // Structural, Piping, Mechanical, Civil, etc.
+  estimatedWorkforce String?
+  expectedStartDate  DateTime?
+  expectedDuration   String?
+  projectDescription String
+  boqDocumentUrl     String?
+  priority           String    @default("normal") // low, normal, high, urgent
+  status             String    @default("new") // new, contacted, under_discussion, site_visit, quotation, negotiation, won, lost, on_hold, closed
+  assignedUserId     String?
+  assignedUser       User?     @relation("AssignedProjectEnquiry", fields: [assignedUserId], references: [id])
+  createdAt          DateTime  @default(now())
+  updatedAt          DateTime  @updatedAt
+  deletedAt          DateTime?
+
+  @@index([enquiryId])
+  @@index([status])
+}
+
+model ManpowerEnquiry {
+  id                     String    @id @default(uuid())
+  enquiryId              String    @unique // e.g. "LT-ME-2026-0001"
+  companyName            String
+  contactPerson          String
+  phone                  String
+  email                  String?
+  location               String?
+  requiredPositions      String    // JSON array of trades and quantities e.g. [{"trade": "Fitter", "qty": 20}]
+  totalWorkersNeeded     Int?
+  requiredJoiningDate    DateTime?
+  duration               String?
+  additionalRequirements String?
+  status                 String    @default("new") // new, contacted, shortlisted, deployed, closed
+  assignedUserId         String?
+  assignedUser           User?     @relation("AssignedManpowerEnquiry", fields: [assignedUserId], references: [id])
+  createdAt              DateTime  @default(now())
+  updatedAt              DateTime  @updatedAt
+  deletedAt              DateTime?
+
+  @@index([enquiryId])
+  @@index([status])
+}
+
+model ContactEnquiry {
+  id        String    @id @default(uuid())
+  name      String
+  phone     String
+  email     String?
+  company   String?
+  subject   String?
+  category  String    @default("general") // project, manpower, job, general, other
+  message   String
+  status    String    @default("new") // new, in_progress, resolved, archived
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+
+  @@index([status])
+  @@index([category])
+}
+
+model EnquiryNote {
+  id          String   @id @default(uuid())
+  enquiryType String   // project, manpower, contact
+  enquiryId   String
+  userId      String
+  user        User     @relation(fields: [userId], references: [id])
+  noteText    String
+  createdAt   DateTime @default(now())
+
+  @@index([enquiryType, enquiryId])
+}
+
+// ----------------------------------------------------
+// 6. CENTRAL MEDIA LIBRARY
+// ----------------------------------------------------
+
+model MediaLibrary {
+  id            String         @id @default(uuid())
+  fileName      String
+  storagePath   String         @unique
+  fileType      String         @default("image") // image, document, video
+  mimeType      String
+  fileSizeBytes Int
+  dimensions    String?        // e.g. "1920x1080"
+  altText       String?
+  caption       String?
+  category      String         @default("general") // project, hero, service, news, document, logo
+  isSecure      Boolean        @default(false)
+  uploadedById  String?
+  uploadedBy    User?          @relation(fields: [uploadedById], references: [id])
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+
+  projectImages ProjectImage[]
+
+  @@index([category])
+  @@index([fileType])
+}
+
+// ----------------------------------------------------
+// 7. NEWS, TESTIMONIALS & SITE CMS
+// ----------------------------------------------------
+
+model NewsPost {
+  id               String    @id @default(uuid())
+  slug             String    @unique
+  title            String
+  excerpt          String?
+  content          String
+  featuredImageUrl String?
+  category         String    @default("Company Update") // Project Milestone, Recruitment Drive, Safety, Announcement
+  status           String    @default("published") // draft, published, scheduled, archived
+  publishedAt      DateTime? @default(now())
+  authorId         String?
+  author           User?     @relation(fields: [authorId], references: [id])
+  seoTitle         String?
+  seoDescription   String?
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+
+  @@index([slug])
+  @@index([status])
+}
+
+model Testimonial {
+  id              String   @id @default(uuid())
+  clientName      String
+  designation     String?
+  companyName     String
+  testimonialText String
+  clientPhotoUrl  String?
+  rating          Int      @default(5)
+  isFeatured      Boolean  @default(false)
+  isPublished     Boolean  @default(true)
+  displayOrder    Int      @default(0)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@index([isPublished])
+}
+
+model SiteSetting {
+  id          String   @id @default(uuid())
+  key         String   @unique
+  value       String
+  category    String   @default("general") // general, contact, seo, notification, social, features
+  isPublic    Boolean  @default(true)
+  description String?
+  updatedAt   DateTime @updatedAt
+
+  @@index([category])
+  @@index([key])
+}
+
+model HomepageSection {
+  id           String   @id @default(uuid())
+  sectionKey   String   @unique // hero, stats, about, services, process, projects, manpower, safety, vacancies, contact
+  title        String?
+  subtitle     String?
+  content      String?  // JSON string for complex structured sections
+  mediaUrl     String?
+  displayOrder Int      @default(0)
+  isEnabled    Boolean  @default(true)
+  updatedAt    DateTime @updatedAt
+
+  @@index([sectionKey])
+}
+
+// ----------------------------------------------------
+// 8. AUDIT TRAILS & ACTIVITY LOGS
+// ----------------------------------------------------
+
+model ActivityLog {
+  id        String   @id @default(uuid())
+  userId    String?
+  userEmail String?
+  user      User?    @relation(fields: [userId], references: [id])
+  action    String   // CREATE, UPDATE, DELETE, STATUS_CHANGE, LOGIN, EXPORT
+  module    String   // projects, vacancies, applications, enquiries, media, settings, auth
+  recordId  String?
+  ipAddress String?
+  userAgent String?
+  metadata  String?  // JSON string of changes
+  createdAt DateTime @default(now())
+
+  @@index([module])
+  @@index([action])
+  @@index([createdAt])
+}

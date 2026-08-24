@@ -1,0 +1,565 @@
+{
+  "version": 3,
+  "skills": {
+    "find-skills": {
+      "source": "vercel-labs/skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/vercel-labs/skills.git",
+      "skillPath": "skills/find-skills/SKILL.md",
+      "skillFolderHash": "76a98a285cb0434f3d39e1a873823556330e398b",
+      "installedAt": "2026-04-03T03:55:34.187Z",
+      "updatedAt": "2026-08-23T16:51:36.736Z"
+    },
+    "vercel-react-best-practices": {
+      "source": "vercel-labs/agent-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/vercel-labs/agent-skills.git",
+      "skillPath": "skills/react-best-practices/SKILL.md",
+      "skillFolderHash": "343db72180d05814949fef7d46be96b5c6ee86b3",
+      "installedAt": "2026-05-04T21:23:01.017Z",
+      "updatedAt": "2026-05-04T21:23:01.017Z"
+    },
+    "web-design-guidelines": {
+      "source": "vercel-labs/agent-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/vercel-labs/agent-skills.git",
+      "skillPath": "skills/web-design-guidelines/SKILL.md",
+      "skillFolderHash": "3116f3e62dbd02b44a598b1aa690d2a8938e8f89",
+      "installedAt": "2026-05-04T21:27:59.704Z",
+      "updatedAt": "2026-05-04T21:27:59.704Z"
+    },
+    "frontend-design": {
+      "source": "anthropics/skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/anthropics/skills.git",
+      "skillPath": "skills/frontend-design/SKILL.md",
+      "skillFolderHash": "0d5b74a14bdf3ebcd64f352d06376a2ef05ed296",
+      "installedAt": "2026-05-04T21:29:30.244Z",
+      "updatedAt": "2026-08-23T16:51:41.336Z"
+    },
+    "ui-ux-pro-max": {
+      "source": "nextlevelbuilder/ui-ux-pro-max-skill",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/nextlevelbuilder/ui-ux-pro-max-skill.git",
+      "skillPath": ".claude/skills/ui-ux-pro-max/SKILL.md",
+      "skillFolderHash": "5cca2c41be4f7a85c3d8ff95e9bd42de9486745e",
+      "installedAt": "2026-05-04T21:30:28.149Z",
+      "updatedAt": "2026-08-23T16:51:46.517Z"
+    },
+    "shadcn": {
+      "source": "shadcn/ui",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/shadcn/ui.git",
+      "skillPath": "skills/shadcn/SKILL.md",
+      "skillFolderHash": "0a31c3c2535a62b22bf23a1b10a142178a6b7dbf",
+      "installedAt": "2026-05-04T21:31:56.720Z",
+      "updatedAt": "2026-08-23T16:52:39.497Z"
+    },
+    "skill-creator": {
+      "source": "anthropics/skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/anthropics/skills.git",
+      "skillPath": "skills/skill-creator/SKILL.md",
+      "skillFolderHash": "3cf9a8db32597ba3e24b584a3d696f4e11c7d7b6",
+      "pluginName": "example-skills",
+      "installedAt": "2026-05-04T21:32:28.809Z",
+      "updatedAt": "2026-05-04T21:32:28.809Z"
+    },
+    "supabase-postgres-best-practices": {
+      "source": "supabase/agent-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/supabase/agent-skills.git",
+      "skillPath": "skills/supabase-postgres-best-practices/SKILL.md",
+      "skillFolderHash": "27bde25111c4cd5e6f803fc9db5fbffe27bb26cf",
+      "installedAt": "2026-05-04T21:37:56.499Z",
+      "updatedAt": "2026-08-23T16:52:44.303Z"
+    },
+    "microsoft-foundry": {
+      "source": "microsoft/azure-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/microsoft/azure-skills.git",
+      "skillPath": "skills/microsoft-foundry/SKILL.md",
+      "skillFolderHash": "18c503ada8e8dbf4011ebfbd6bad054c2a0122df7463fb3f7d9124132a110680",
+      "installedAt": "2026-05-04T21:46:35.957Z",
+      "updatedAt": "2026-08-23T16:54:18.305Z"
+    },
+    "gsap-core": {
+      "source": "greensock/gsap-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/greensock/gsap-skills.git",
+      "skillPath": "skills/gsap-core/SKILL.md",
+      "skillFolderHash": "135754edd728103e329a8df8b471b197375b370e",
+      "installedAt": "2026-05-04T21:48:29.534Z",
+      "updatedAt": "2026-05-04T21:48:29.534Z"
+    },
+    "gsap-frameworks": {
+      "source": "greensock/gsap-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/greensock/gsap-skills.git",
+      "skillPath": "skills/gsap-frameworks/SKILL.md",
+      "skillFolderHash": "5b086fa623be801882128fa16b2a9b446d193029",
+      "installedAt": "2026-05-04T21:48:29.539Z",
+      "updatedAt": "2026-05-04T21:48:29.539Z"
+    },
+    "gsap-performance": {
+      "source": "greensock/gsap-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/greensock/gsap-skills.git",
+      "skillPath": "skills/gsap-performance/SKILL.md",
+      "skillFolderHash": "34dec2f051872f8d02df06de97450e448bac9c5e",
+      "installedAt": "2026-05-04T21:48:29.542Z",
+      "updatedAt": "2026-05-04T21:48:29.542Z"
+    },
+    "gsap-plugins": {
+      "source": "greensock/gsap-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/greensock/gsap-skills.git",
+      "skillPath": "skills/gsap-plugins/SKILL.md",
+      "skillFolderHash": "e31ccbdb75cf41f0e7df0fec567f6e07956eaca9",
+      "installedAt": "2026-05-04T21:48:29.544Z",
+      "updatedAt": "2026-05-04T21:48:29.544Z"
+    },
+    "gsap-react": {
+      "source": "greensock/gsap-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/greensock/gsap-skills.git",
+      "skillPath": "skills/gsap-react/SKILL.md",
+      "skillFolderHash": "ac01a338b96fddbc6cf65a89858d2e6068887b39",
+      "installedAt": "2026-05-04T21:48:29.546Z",
+      "updatedAt": "2026-05-04T21:48:29.546Z"
+    },
+    "gsap-scrolltrigger": {
+      "source": "greensock/gsap-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/greensock/gsap-skills.git",
+      "skillPath": "skills/gsap-scrolltrigger/SKILL.md",
+      "skillFolderHash": "7838f515e05bfab0a79dd63368a409ddc7d76ee6",
+      "installedAt": "2026-05-04T21:48:29.547Z",
+      "updatedAt": "2026-05-04T21:48:29.547Z"
+    },
+    "gsap-timeline": {
+      "source": "greensock/gsap-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/greensock/gsap-skills.git",
+      "skillPath": "skills/gsap-timeline/SKILL.md",
+      "skillFolderHash": "37eb5d623c3e14367864d57160acb64f13950994",
+      "installedAt": "2026-05-04T21:48:29.549Z",
+      "updatedAt": "2026-05-04T21:48:29.549Z"
+    },
+    "gsap-utils": {
+      "source": "greensock/gsap-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/greensock/gsap-skills.git",
+      "skillPath": "skills/gsap-utils/SKILL.md",
+      "skillFolderHash": "3f7aa617dd2dc7ebf21f30349b9c7b6d8640d789",
+      "installedAt": "2026-05-04T21:48:29.551Z",
+      "updatedAt": "2026-05-04T21:48:29.551Z"
+    },
+    "r3f-animation": {
+      "source": "EnzeD/r3f-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/EnzeD/r3f-skills.git",
+      "skillPath": "skills/r3f-animation/SKILL.md",
+      "skillFolderHash": "b03c0d599ea6ad6f2ae310de44537675a9b4ad34",
+      "installedAt": "2026-05-04T21:48:42.884Z",
+      "updatedAt": "2026-05-04T21:48:42.884Z"
+    },
+    "r3f-fundamentals": {
+      "source": "EnzeD/r3f-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/EnzeD/r3f-skills.git",
+      "skillPath": "skills/r3f-fundamentals/SKILL.md",
+      "skillFolderHash": "6e232ca3d84fc52a28cd197effa8f950f96f62ec",
+      "installedAt": "2026-05-04T21:48:42.891Z",
+      "updatedAt": "2026-05-04T21:48:42.891Z"
+    },
+    "r3f-geometry": {
+      "source": "EnzeD/r3f-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/EnzeD/r3f-skills.git",
+      "skillPath": "skills/r3f-geometry/SKILL.md",
+      "skillFolderHash": "26433056b16f4790428d2a683ef5dec15b26e6a2",
+      "installedAt": "2026-05-04T21:48:42.894Z",
+      "updatedAt": "2026-05-04T21:48:42.894Z"
+    },
+    "r3f-interaction": {
+      "source": "EnzeD/r3f-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/EnzeD/r3f-skills.git",
+      "skillPath": "skills/r3f-interaction/SKILL.md",
+      "skillFolderHash": "50748a8e0ee6468838ccc1a4964eb383daaa4ea8",
+      "installedAt": "2026-05-04T21:48:42.897Z",
+      "updatedAt": "2026-05-04T21:48:42.897Z"
+    },
+    "r3f-lighting": {
+      "source": "EnzeD/r3f-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/EnzeD/r3f-skills.git",
+      "skillPath": "skills/r3f-lighting/SKILL.md",
+      "skillFolderHash": "6d1a5bde003f9cb10a307c1e88e624eef5c32bb2",
+      "installedAt": "2026-05-04T21:48:42.900Z",
+      "updatedAt": "2026-05-04T21:48:42.900Z"
+    },
+    "r3f-loaders": {
+      "source": "EnzeD/r3f-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/EnzeD/r3f-skills.git",
+      "skillPath": "skills/r3f-loaders/SKILL.md",
+      "skillFolderHash": "d08c3d41f71ef51f2f2d5e514613b0a1ac85dcb8",
+      "installedAt": "2026-05-04T21:48:42.904Z",
+      "updatedAt": "2026-05-04T21:48:42.904Z"
+    },
+    "r3f-materials": {
+      "source": "EnzeD/r3f-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/EnzeD/r3f-skills.git",
+      "skillPath": "skills/r3f-materials/SKILL.md",
+      "skillFolderHash": "87b207d634996d3360116cf7ce257fcd2e8b0ae1",
+      "installedAt": "2026-05-04T21:48:42.906Z",
+      "updatedAt": "2026-05-04T21:48:42.906Z"
+    },
+    "r3f-physics": {
+      "source": "EnzeD/r3f-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/EnzeD/r3f-skills.git",
+      "skillPath": "skills/r3f-physics/SKILL.md",
+      "skillFolderHash": "fb81ce6640e49560059d1f80397ae60f53ed2c9d",
+      "installedAt": "2026-05-04T21:48:42.910Z",
+      "updatedAt": "2026-05-04T21:48:42.910Z"
+    },
+    "r3f-postprocessing": {
+      "source": "EnzeD/r3f-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/EnzeD/r3f-skills.git",
+      "skillPath": "skills/r3f-postprocessing/SKILL.md",
+      "skillFolderHash": "9962261298deec1a76855bd43f3747adf58ed454",
+      "installedAt": "2026-05-04T21:48:42.913Z",
+      "updatedAt": "2026-05-04T21:48:42.913Z"
+    },
+    "r3f-shaders": {
+      "source": "EnzeD/r3f-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/EnzeD/r3f-skills.git",
+      "skillPath": "skills/r3f-shaders/SKILL.md",
+      "skillFolderHash": "fa2234f860aef6fe48ff53acd80d1f9697393af0",
+      "installedAt": "2026-05-04T21:48:42.917Z",
+      "updatedAt": "2026-05-04T21:48:42.917Z"
+    },
+    "r3f-textures": {
+      "source": "EnzeD/r3f-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/EnzeD/r3f-skills.git",
+      "skillPath": "skills/r3f-textures/SKILL.md",
+      "skillFolderHash": "a5e487bd65e35a0f041ebc811b7a2984304e56e9",
+      "installedAt": "2026-05-04T21:48:42.920Z",
+      "updatedAt": "2026-05-04T21:48:42.920Z"
+    },
+    "three-js": {
+      "source": "mindrally/skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/mindrally/skills.git",
+      "skillPath": "three-js/SKILL.md",
+      "skillFolderHash": "5af9860b96262b909cd832affba5c4aa2053018a",
+      "installedAt": "2026-05-04T21:48:52.186Z",
+      "updatedAt": "2026-05-04T21:48:52.186Z"
+    },
+    "anime-js": {
+      "source": "mindrally/skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/mindrally/skills.git",
+      "skillPath": "anime-js/SKILL.md",
+      "skillFolderHash": "7ba4890573f0101e1fa19212c807a8fe501bc10f",
+      "installedAt": "2026-05-04T21:49:01.503Z",
+      "updatedAt": "2026-05-04T21:49:01.503Z"
+    },
+    "tailwind-design-system": {
+      "source": "sickn33/antigravity-awesome-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/sickn33/antigravity-awesome-skills.git",
+      "skillPath": "skills/tailwind-design-system/SKILL.md",
+      "skillFolderHash": "9934db7494b958828b33d5b28457c23acaceaca8",
+      "installedAt": "2026-05-04T21:49:36.655Z",
+      "updatedAt": "2026-05-04T21:49:36.655Z"
+    },
+    "threejs-skills": {
+      "source": "sickn33/antigravity-awesome-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/sickn33/antigravity-awesome-skills.git",
+      "skillPath": "skills/threejs-skills/SKILL.md",
+      "skillFolderHash": "c75e4732eb49df02c48201a5b0d662739ca2da40",
+      "installedAt": "2026-05-04T21:57:02.890Z",
+      "updatedAt": "2026-05-04T21:57:02.890Z"
+    },
+    "site-architecture": {
+      "source": "sickn33/antigravity-awesome-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/sickn33/antigravity-awesome-skills.git",
+      "skillPath": "skills/site-architecture/SKILL.md",
+      "skillFolderHash": "f1562a32a14ae52d89f60816e1677c715409003ec14d34fa91826f34c8ce86b6",
+      "installedAt": "2026-05-04T22:22:50.080Z",
+      "updatedAt": "2026-08-23T16:53:42.404Z"
+    },
+    "copywriting": {
+      "source": "sickn33/antigravity-awesome-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/sickn33/antigravity-awesome-skills.git",
+      "skillPath": "skills/copywriting/SKILL.md",
+      "skillFolderHash": "2ccae82c083e8cfe7521fd05c0c9b9bb9f6718048cd955f21cae509dbd46a88b",
+      "installedAt": "2026-05-04T22:23:55.246Z",
+      "updatedAt": "2026-08-23T16:54:37.661Z"
+    },
+    "social-proof-architect": {
+      "source": "sickn33/antigravity-awesome-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/sickn33/antigravity-awesome-skills.git",
+      "skillPath": "skills/social-proof-architect/SKILL.md",
+      "skillFolderHash": "7f1ca8de152d67ea1535582b89e0bf473ca2f86f",
+      "installedAt": "2026-05-04T22:24:32.135Z",
+      "updatedAt": "2026-05-04T22:24:32.135Z"
+    },
+    "seo-audit": {
+      "source": "sickn33/antigravity-awesome-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/sickn33/antigravity-awesome-skills.git",
+      "skillPath": "skills/seo-audit/SKILL.md",
+      "skillFolderHash": "8f8d2c87fb8fdaff6a762ef4668b118cf91133ed",
+      "installedAt": "2026-05-04T22:25:08.936Z",
+      "updatedAt": "2026-05-04T22:25:08.936Z"
+    },
+    "supabase-automation": {
+      "source": "sickn33/antigravity-awesome-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/sickn33/antigravity-awesome-skills.git",
+      "skillPath": "skills/supabase-automation/SKILL.md",
+      "skillFolderHash": "e29c2be7a8a2dad5ace68b15c343171c59f59361",
+      "installedAt": "2026-05-04T22:25:42.898Z",
+      "updatedAt": "2026-05-04T22:25:42.898Z"
+    },
+    "ui-skills": {
+      "source": "sickn33/antigravity-awesome-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/sickn33/antigravity-awesome-skills.git",
+      "skillPath": "skills/ui-skills/SKILL.md",
+      "skillFolderHash": "dadf85a3d611fbc92500358ff5a289bb742db0d7",
+      "installedAt": "2026-05-04T22:26:26.576Z",
+      "updatedAt": "2026-05-04T22:26:26.576Z"
+    },
+    "next-intl-add-language": {
+      "source": "github/awesome-copilot",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/github/awesome-copilot.git",
+      "skillPath": "skills/next-intl-add-language/SKILL.md",
+      "skillFolderHash": "5df67700becbb42be63e6a0a66ddfc1bb8908d19",
+      "installedAt": "2026-05-06T22:41:42.700Z",
+      "updatedAt": "2026-05-06T22:43:01.024Z"
+    },
+    "ckm:banner-design": {
+      "source": "nextlevelbuilder/ui-ux-pro-max-skill",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/nextlevelbuilder/ui-ux-pro-max-skill.git",
+      "skillPath": ".claude/skills/banner-design/SKILL.md",
+      "skillFolderHash": "a25378410a0d9c3715520e6a78b272a90519ded0",
+      "installedAt": "2026-06-10T23:51:35.515Z",
+      "updatedAt": "2026-06-10T23:51:35.515Z"
+    },
+    "ckm:brand": {
+      "source": "nextlevelbuilder/ui-ux-pro-max-skill",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/nextlevelbuilder/ui-ux-pro-max-skill.git",
+      "skillPath": ".claude/skills/brand/SKILL.md",
+      "skillFolderHash": "338e727758db86ca101d70306f4d0a4ba19ee1f5",
+      "installedAt": "2026-06-10T23:51:35.519Z",
+      "updatedAt": "2026-06-10T23:51:35.519Z"
+    },
+    "ckm:design": {
+      "source": "nextlevelbuilder/ui-ux-pro-max-skill",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/nextlevelbuilder/ui-ux-pro-max-skill.git",
+      "skillPath": ".claude/skills/design/SKILL.md",
+      "skillFolderHash": "1a9322b8659631ff80fe6f3926f7218485ede972",
+      "installedAt": "2026-06-10T23:51:35.521Z",
+      "updatedAt": "2026-06-10T23:51:35.521Z"
+    },
+    "ckm:design-system": {
+      "source": "nextlevelbuilder/ui-ux-pro-max-skill",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/nextlevelbuilder/ui-ux-pro-max-skill.git",
+      "skillPath": ".claude/skills/design-system/SKILL.md",
+      "skillFolderHash": "4e9756119ec08dc28bf772d8b348d68866e43571",
+      "installedAt": "2026-06-10T23:51:35.523Z",
+      "updatedAt": "2026-06-10T23:51:35.523Z"
+    },
+    "ckm:slides": {
+      "source": "nextlevelbuilder/ui-ux-pro-max-skill",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/nextlevelbuilder/ui-ux-pro-max-skill.git",
+      "skillPath": ".claude/skills/slides/SKILL.md",
+      "skillFolderHash": "6d66fdefcf7d445dd78d788c6810d6302356343c",
+      "installedAt": "2026-06-10T23:51:35.525Z",
+      "updatedAt": "2026-06-10T23:51:35.525Z"
+    },
+    "ckm:ui-styling": {
+      "source": "nextlevelbuilder/ui-ux-pro-max-skill",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/nextlevelbuilder/ui-ux-pro-max-skill.git",
+      "skillPath": ".claude/skills/ui-styling/SKILL.md",
+      "skillFolderHash": "362c326af27fdac47a54a1ae94da5bd474bf9157",
+      "installedAt": "2026-06-10T23:51:35.526Z",
+      "updatedAt": "2026-06-10T23:51:35.526Z"
+    },
+    "invoice-template": {
+      "source": "claude-office-skills/skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/claude-office-skills/skills.git",
+      "skillPath": "invoice-template/SKILL.md",
+      "skillFolderHash": "72f5b38e73335d307dfa296db0a3c7f50e33d8a8",
+      "installedAt": "2026-08-13T16:45:27.712Z",
+      "updatedAt": "2026-08-13T16:45:27.712Z"
+    },
+    "invoice-generator": {
+      "source": "claude-office-skills/skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/claude-office-skills/skills.git",
+      "skillPath": "invoice-generator/SKILL.md",
+      "skillFolderHash": "e6d2dbad91a35c9b03c2ce2294e7b4a9948a08dd",
+      "installedAt": "2026-08-13T17:13:26.723Z",
+      "updatedAt": "2026-08-13T17:13:26.723Z"
+    },
+    "writing-quotation": {
+      "source": "mathbullet/skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/mathbullet/skills.git",
+      "skillPath": "plugins/writing-quotation/skills/writing-quotation/SKILL.md",
+      "skillFolderHash": "e83e8ec4bdf82d991d6d1c88b973abc177aae907",
+      "installedAt": "2026-08-13T17:22:38.970Z",
+      "updatedAt": "2026-08-13T17:22:38.970Z"
+    },
+    "resume-ats-optimizer": {
+      "source": "paramchoudhary/resumeskills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/paramchoudhary/resumeskills.git",
+      "skillPath": "skills/resume-ats-optimizer/SKILL.md",
+      "skillFolderHash": "bf17e4ed4337d2e15cfd7674537f4b7d345796fd",
+      "installedAt": "2026-08-21T20:04:19.394Z",
+      "updatedAt": "2026-08-21T20:04:19.394Z"
+    },
+    "resume-bullet-writer": {
+      "source": "paramchoudhary/resumeskills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/paramchoudhary/resumeskills.git",
+      "skillPath": "skills/resume-bullet-writer/SKILL.md",
+      "skillFolderHash": "c945200727fb620d656a49d463678584a21a44b3",
+      "installedAt": "2026-08-21T20:04:34.716Z",
+      "updatedAt": "2026-08-21T20:04:34.716Z"
+    },
+    "resume-tailor": {
+      "source": "paramchoudhary/resumeskills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/paramchoudhary/resumeskills.git",
+      "skillPath": "skills/resume-tailor/SKILL.md",
+      "skillFolderHash": "8aba47801e48b9227adacd3f4aa4775652dfd975",
+      "installedAt": "2026-08-21T20:04:58.655Z",
+      "updatedAt": "2026-08-21T20:04:58.655Z"
+    },
+    "resume-section-builder": {
+      "source": "paramchoudhary/resumeskills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/paramchoudhary/resumeskills.git",
+      "skillPath": "skills/resume-section-builder/SKILL.md",
+      "skillFolderHash": "92d5d5e4dbc5c76c637f0b5549e27046c2dcabb5",
+      "installedAt": "2026-08-21T20:05:13.124Z",
+      "updatedAt": "2026-08-21T20:05:13.124Z"
+    },
+    "resume-intelligence": {
+      "source": "rahulbsw/resume-builder",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/rahulbsw/resume-builder.git",
+      "skillPath": "plugins/resume-intelligence/skills/resume-intelligence/SKILL.md",
+      "skillFolderHash": "ca2286f5c03de5434c24ce7a577618101a4d058e",
+      "installedAt": "2026-08-21T20:05:30.016Z",
+      "updatedAt": "2026-08-21T20:05:30.016Z"
+    },
+    "resume-builder": {
+      "source": "amruthpillai/reactive-resume",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/amruthpillai/reactive-resume.git",
+      "skillPath": "skills/resume-builder/SKILL.md",
+      "skillFolderHash": "4db5a0a0e45077823ead98a638fa5751b67476a0",
+      "installedAt": "2026-08-21T20:06:07.134Z",
+      "updatedAt": "2026-08-21T20:06:07.134Z"
+    },
+    "banner-design": {
+      "source": "nextlevelbuilder/ui-ux-pro-max-skill",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/nextlevelbuilder/ui-ux-pro-max-skill.git",
+      "skillPath": ".claude/skills/banner-design/SKILL.md",
+      "skillFolderHash": "f859a951ded1109a38bcc7f18faf4581f9adbf0550df7a11c013e77a5b229541",
+      "installedAt": "2026-08-23T16:51:51.157Z",
+      "updatedAt": "2026-08-23T16:53:13.998Z"
+    },
+    "brand": {
+      "source": "nextlevelbuilder/ui-ux-pro-max-skill",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/nextlevelbuilder/ui-ux-pro-max-skill.git",
+      "skillPath": ".claude/skills/brand/SKILL.md",
+      "skillFolderHash": "bd65dbd8de679805d1ad740c74a41b4f831d08ff0240390a7ed2947c62a896b9",
+      "installedAt": "2026-08-23T16:52:05.395Z",
+      "updatedAt": "2026-08-23T16:53:21.494Z"
+    },
+    "design": {
+      "source": "nextlevelbuilder/ui-ux-pro-max-skill",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/nextlevelbuilder/ui-ux-pro-max-skill.git",
+      "skillPath": ".claude/skills/design/SKILL.md",
+      "skillFolderHash": "bb2e3ffee4b7b69e5a38ce08f6010ca79381d9f53b9dfadb33aee1ece6f1679a",
+      "installedAt": "2026-08-23T16:52:10.471Z",
+      "updatedAt": "2026-08-23T16:53:29.283Z"
+    },
+    "design-system": {
+      "source": "nextlevelbuilder/ui-ux-pro-max-skill",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/nextlevelbuilder/ui-ux-pro-max-skill.git",
+      "skillPath": ".claude/skills/design-system/SKILL.md",
+      "skillFolderHash": "5a3dbae4a3c2ad9f96323d9bfae926b3c21bb1e3b066aa067906f577a2ff2545",
+      "installedAt": "2026-08-23T16:52:15.186Z",
+      "updatedAt": "2026-08-23T16:53:36.652Z"
+    },
+    "slides": {
+      "source": "nextlevelbuilder/ui-ux-pro-max-skill",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/nextlevelbuilder/ui-ux-pro-max-skill.git",
+      "skillPath": ".claude/skills/slides/SKILL.md",
+      "skillFolderHash": "a2b3559b58afc484548e1eb359e20495d11cf12b90da7c1fbba50efed9a70340",
+      "installedAt": "2026-08-23T16:52:20.116Z",
+      "updatedAt": "2026-08-23T16:53:42.636Z"
+    },
+    "ui-styling": {
+      "source": "nextlevelbuilder/ui-ux-pro-max-skill",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/nextlevelbuilder/ui-ux-pro-max-skill.git",
+      "skillPath": ".claude/skills/ui-styling/SKILL.md",
+      "skillFolderHash": "e10b225db04fdfd893fdda2b9ed893c315f9dee5693494743d57b02066e96a51",
+      "installedAt": "2026-08-23T16:52:26.740Z",
+      "updatedAt": "2026-08-23T16:53:57.248Z"
+    }
+  },
+  "dismissed": {
+    "findSkillsPrompt": true
+  },
+  "lastSelectedAgents": [
+    "amp",
+    "antigravity",
+    "cline",
+    "codex",
+    "cursor",
+    "deepagents",
+    "firebender",
+    "gemini-cli",
+    "github-copilot",
+    "kimi-cli",
+    "opencode",
+    "warp",
+    "claude-code",
+    "openclaw"
+  ]
+}
