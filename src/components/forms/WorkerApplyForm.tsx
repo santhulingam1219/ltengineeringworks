@@ -1,6 +1,6 @@
 "use client";
 
-import { useActionState, useState } from "react";
+import { useActionState, useState, useRef } from "react";
 import { submitWorkerApplicationAction, ApplicationResult } from "@/app/actions/applicationActions";
 import { CheckCircle, Warning, ArrowRight, HardHat, FileText, Phone, UploadSimple, X, FileDoc, FilePdf } from "@phosphor-icons/react";
 
@@ -18,6 +18,7 @@ export function WorkerApplyForm({ vacancyId, defaultPosition = "", onSuccess }: 
   const [state, formAction, isPending] = useActionState(submitWorkerApplicationAction, initialState);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [fileError, setFileError] = useState<string | null>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFileError(null);
@@ -230,16 +231,22 @@ export function WorkerApplyForm({ vacancyId, defaultPosition = "", onSuccess }: 
           Upload candidate CV, bio-data, or trade experience certificate. Accepted: <strong>PDF (.pdf)</strong> or <strong>Word (.doc, .docx)</strong> up to <strong>5MB</strong>.
         </p>
 
+        {/* Hidden permanent file input to guarantee it is always sent in form data */}
+        <input
+          ref={fileInputRef}
+          type="file"
+          id="resume-upload-input"
+          name="resume"
+          accept=".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+          onChange={handleFileChange}
+          className="hidden"
+        />
+
         {!selectedFile ? (
-          <div className="relative border-2 border-dashed border-slate-300 hover:border-amber-500 bg-slate-50/70 rounded-sm p-4 text-center transition-colors cursor-pointer group">
-            <input
-              type="file"
-              id="resume-upload-input"
-              name="resume"
-              accept=".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-              onChange={handleFileChange}
-              className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
-            />
+          <div 
+            onClick={() => fileInputRef.current?.click()}
+            className="border-2 border-dashed border-slate-300 hover:border-amber-500 bg-slate-50/70 hover:bg-slate-50 rounded-sm p-4 text-center transition-colors cursor-pointer group"
+          >
             <div className="flex flex-col items-center justify-center gap-1.5 pointer-events-none">
               <div className="w-9 h-9 rounded-sm bg-white border border-slate-200 flex items-center justify-center text-slate-600 group-hover:text-amber-600 shadow-xs transition-colors">
                 <UploadSimple className="w-5 h-5" weight="bold" />
@@ -270,14 +277,23 @@ export function WorkerApplyForm({ vacancyId, defaultPosition = "", onSuccess }: 
               </div>
             </div>
 
-            <button
-              type="button"
-              onClick={removeSelectedFile}
-              className="p-1 text-slate-400 hover:text-red-600 transition-colors cursor-pointer"
-              title="Remove selected resume"
-            >
-              <X className="w-4 h-4" />
-            </button>
+            <div className="flex items-center gap-2 flex-shrink-0">
+              <button
+                type="button"
+                onClick={() => fileInputRef.current?.click()}
+                className="px-2.5 py-1 text-[11px] font-heading font-bold uppercase text-slate-700 bg-white border border-slate-300 hover:bg-slate-50 rounded-xs cursor-pointer"
+              >
+                Change
+              </button>
+              <button
+                type="button"
+                onClick={removeSelectedFile}
+                className="p-1 text-slate-400 hover:text-red-600 transition-colors cursor-pointer"
+                title="Remove selected resume"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
           </div>
         )}
       </div>

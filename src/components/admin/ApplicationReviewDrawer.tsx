@@ -17,7 +17,8 @@ import {
   ChatCircleText,
   DownloadSimple,
   FileDoc,
-  FilePdf
+  FilePdf,
+  Eye
 } from "@phosphor-icons/react";
 
 interface ApplicationNote {
@@ -178,34 +179,45 @@ export function ApplicationReviewDrawer({
             </h3>
 
             {application.resumeFileUrl ? (
-              <div className="p-4 bg-amber-500/10 border border-amber-500/30 rounded-sm space-y-2.5">
-                <div className="flex items-center justify-between gap-2">
-                  <div className="flex items-center gap-2 min-w-0">
+              <div className="p-4 bg-amber-500/10 border border-amber-500/30 rounded-sm space-y-3">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                  <div className="flex items-center gap-2.5 min-w-0">
                     {application.resumeFileName?.toLowerCase().endsWith(".pdf") ? (
-                      <FilePdf className="w-6 h-6 text-red-600 flex-shrink-0" weight="fill" />
+                      <FilePdf className="w-7 h-7 text-red-600 flex-shrink-0" weight="fill" />
                     ) : (
-                      <FileDoc className="w-6 h-6 text-blue-600 flex-shrink-0" weight="fill" />
+                      <FileDoc className="w-7 h-7 text-blue-600 flex-shrink-0" weight="fill" />
                     )}
                     <div className="min-w-0">
                       <span className="text-xs font-heading font-bold text-slate-900 block truncate">
                         {application.resumeFileName || "Candidate_Resume.pdf"}
                       </span>
                       <span className="text-[10px] font-mono text-slate-500 block">
-                        Direct document upload from candidate application form
+                        Candidate CV / Bio-Data Attachment
                       </span>
                     </div>
                   </div>
 
-                  <a
-                    href={application.resumeFileUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    download={application.resumeFileName || true}
-                    className="px-3.5 py-2 bg-amber-500 hover:bg-amber-400 text-slate-950 text-xs font-heading font-bold uppercase rounded-xs transition-colors flex items-center gap-1.5 flex-shrink-0 shadow-xs active:scale-95"
-                  >
-                    <DownloadSimple className="w-4 h-4" weight="bold" />
-                    <span>Download</span>
-                  </a>
+                  <div className="flex items-center gap-2 flex-shrink-0">
+                    <a
+                      href={application.resumeFileUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="px-3 py-2 bg-white hover:bg-slate-50 text-slate-800 border border-slate-300 text-xs font-heading font-bold uppercase rounded-xs transition-colors flex items-center gap-1.5 shadow-xs"
+                    >
+                      <Eye className="w-3.5 h-3.5" />
+                      <span>Preview</span>
+                    </a>
+                    <a
+                      href={application.resumeFileUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      download={application.resumeFileName || "resume.pdf"}
+                      className="px-3.5 py-2 bg-amber-500 hover:bg-amber-400 text-slate-950 text-xs font-heading font-bold uppercase rounded-xs transition-colors flex items-center gap-1.5 shadow-xs active:scale-95"
+                    >
+                      <DownloadSimple className="w-4 h-4" weight="bold" />
+                      <span>Download</span>
+                    </a>
+                  </div>
                 </div>
               </div>
             ) : (
