@@ -1,11 +1,9 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import Link from "next/link";
 import {
   ArrowRight,
-  HardHat,
-  Buildings,
   CheckCircle,
   CaretLeft,
   CaretRight,
@@ -29,7 +27,7 @@ interface SlideData {
 const slides: SlideData[] = [
   {
     id: 1,
-    tag: "Paradeep Industrial Hub • Odisha, India",
+    tag: "Paradeep Industrial Hub • Odisha",
     title: "Heavy Structural Steel Fabrication & Erection",
     subtitle: "Complete mechanical execution of industrial steel frameworks, heavy trusses, column rigging, and plant infrastructure across Eastern India.",
     image: "/images/hero-steel-plant.webp",
@@ -96,6 +94,7 @@ const slides: SlideData[] = [
 export function HeroSlider() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
+  const touchStartX = useRef<number | null>(null);
 
   const nextSlide = useCallback(() => {
     setCurrentSlide((prev) => (prev + 1) % slides.length);
@@ -104,6 +103,26 @@ export function HeroSlider() {
   const prevSlide = useCallback(() => {
     setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
   }, []);
+
+  // Swipe gesture support for mobile
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
+  };
+
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    if (touchStartX.current === null) return;
+    const touchEndX = e.changedTouches[0].clientX;
+    const deltaX = touchStartX.current - touchEndX;
+
+    if (deltaX > 45) {
+      // Swiped Left -> Next
+      nextSlide();
+    } else if (deltaX < -45) {
+      // Swiped Right -> Prev
+      prevSlide();
+    }
+    touchStartX.current = null;
+  };
 
   useEffect(() => {
     if (isPaused) return;
@@ -117,9 +136,11 @@ export function HeroSlider() {
 
   return (
     <section
-      className="relative bg-[#070D18] text-white overflow-hidden border-b border-slate-800 min-h-[580px] sm:min-h-[620px] lg:min-h-[660px] flex items-center"
+      className="relative bg-[#070D18] text-white overflow-hidden border-b border-slate-800 min-h-[520px] sm:min-h-[620px] lg:min-h-[660px] flex items-center select-none"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
+      onTouchStart={handleTouchStart}
+      onTouchEnd={handleTouchEnd}
     >
       {/* Background Image Carousel with Ultra-Smooth Crossfade & Responsive Mobile/Desktop Framing */}
       {slides.map((s, index) => {
@@ -147,67 +168,67 @@ export function HeroSlider() {
         );
       })}
 
-      {/* Directional Gradient: Dark on left behind text, 100% clear and bright on center/right for photography */}
-      <div className="absolute inset-0 bg-gradient-to-r from-[#070D18]/95 via-[#070D18]/75 via-45% to-transparent z-[2]" />
-      <div className="md:hidden absolute inset-0 bg-gradient-to-t from-[#070D18]/95 via-[#070D18]/60 to-transparent z-[2]" />
+      {/* Directional Gradient */}
+      <div className="absolute inset-0 bg-gradient-to-r from-[#070D18]/95 via-[#070D18]/80 via-55% to-slate-950/40 z-[2]" />
+      <div className="md:hidden absolute inset-0 bg-gradient-to-t from-[#070D18] via-[#070D18]/85 via-50% to-[#070D18]/40 z-[2]" />
 
       {/* Decorative Gold Accent Header Line */}
       <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-amber-500 via-amber-400 to-blue-600 z-10" />
 
       {/* Main Content Area */}
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-24 w-full">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-16 lg:py-24 w-full">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-12 items-center">
           
           {/* Left Column: Core Value Proposition */}
-          <div className="lg:col-span-8 space-y-4 sm:space-y-6">
-            <div className="inline-flex items-center gap-2 px-3 py-1 sm:px-3.5 sm:py-1.5 bg-amber-500/20 border border-amber-500/50 rounded-sm text-amber-300 text-[11px] sm:text-xs font-mono font-bold tracking-wider uppercase backdrop-blur-md shadow-sm">
-              <span className="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-amber-400 animate-pulse" />
-              {slide.tag}
+          <div className="lg:col-span-8 space-y-3.5 sm:space-y-6">
+            <div className="inline-flex items-center gap-1.5 px-2.5 py-1 sm:px-3.5 sm:py-1.5 bg-amber-500/20 border border-amber-500/50 rounded-xs text-amber-300 text-[10px] sm:text-xs font-mono font-bold tracking-wider uppercase backdrop-blur-md shadow-sm">
+              <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse flex-shrink-0" />
+              <span className="truncate">{slide.tag}</span>
             </div>
 
-            <h1 className="text-2xl sm:text-4xl lg:text-6xl font-heading font-black tracking-tight uppercase leading-[1.1] text-white drop-shadow-md min-h-[60px] sm:min-h-[130px]">
+            <h1 className="text-2xl sm:text-4xl lg:text-6xl font-heading font-black tracking-tight uppercase leading-[1.12] text-white drop-shadow-md">
               {slide.title}
             </h1>
 
-            <p className="text-xs sm:text-base text-slate-200 font-sans max-w-2xl leading-relaxed drop-shadow-sm min-h-[36px] sm:min-h-[50px]">
+            <p className="text-xs sm:text-base text-slate-200 font-sans max-w-2xl leading-relaxed drop-shadow-sm">
               {slide.subtitle}
             </p>
 
-            {/* Verification Badges */}
-            <div className="flex flex-wrap items-center gap-2 sm:gap-x-6 sm:gap-y-2 text-[10px] sm:text-xs font-mono text-slate-200 pt-1">
-              <div className="flex items-center gap-1.5 bg-slate-950/70 px-2.5 py-1 rounded-xs border border-slate-700/60 backdrop-blur-sm">
-                <CheckCircle className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-emerald-400" weight="fill" />
+            {/* Verification Badges (Responsive Mobile Flow) */}
+            <div className="flex flex-wrap items-center gap-1.5 sm:gap-x-4 sm:gap-y-2 text-[10px] sm:text-xs font-mono text-slate-200 pt-0.5 sm:pt-1">
+              <div className="flex items-center gap-1.5 bg-slate-950/80 px-2 py-1 rounded-xs border border-slate-700/70 backdrop-blur-sm shadow-xs">
+                <CheckCircle className="w-3.5 h-3.5 text-emerald-400 flex-shrink-0" weight="fill" />
                 <span>{slide.badge1}</span>
               </div>
-              <div className="flex items-center gap-1.5 bg-slate-950/70 px-2.5 py-1 rounded-xs border border-slate-700/60 backdrop-blur-sm">
-                <ShieldCheck className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-amber-400" weight="fill" />
+              <div className="flex items-center gap-1.5 bg-slate-950/80 px-2 py-1 rounded-xs border border-slate-700/70 backdrop-blur-sm shadow-xs">
+                <ShieldCheck className="w-3.5 h-3.5 text-amber-400 flex-shrink-0" weight="fill" />
                 <span>{slide.badge2}</span>
               </div>
-              <div className="flex items-center gap-1.5 bg-slate-950/70 px-2.5 py-1 rounded-xs border border-slate-700/60 backdrop-blur-sm">
-                <Wrench className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-blue-400" weight="fill" />
+              <div className="flex items-center gap-1.5 bg-slate-950/80 px-2 py-1 rounded-xs border border-slate-700/70 backdrop-blur-sm shadow-xs">
+                <Wrench className="w-3.5 h-3.5 text-blue-400 flex-shrink-0" weight="fill" />
                 <span>{slide.badge3}</span>
               </div>
             </div>
 
-            {/* Call to Actions */}
-            <div className="flex flex-wrap items-center gap-3 pt-2">
+            {/* Call to Actions (Full Width on Mobile, Inline on Desktop) */}
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 sm:gap-3 pt-2">
               <Link
                 href="/contact"
-                className="px-5 sm:px-6 py-3 sm:py-3.5 bg-amber-500 hover:bg-amber-400 text-slate-950 text-xs sm:text-sm font-heading font-bold uppercase tracking-wider rounded-sm transition-all shadow-lg active:scale-95 flex items-center gap-2"
+                className="w-full sm:w-auto px-5 sm:px-6 py-3 sm:py-3.5 bg-amber-500 hover:bg-amber-400 text-slate-950 text-xs sm:text-sm font-heading font-bold uppercase tracking-wider rounded-xs transition-all shadow-lg active:scale-95 flex items-center justify-center gap-2 text-center"
               >
                 <span>Request Project Quotation</span>
-                <ArrowRight className="w-4 h-4" weight="bold" />
+                <ArrowRight className="w-4 h-4 flex-shrink-0" weight="bold" />
               </Link>
               <Link
                 href="/projects"
-                className="px-5 sm:px-6 py-3 sm:py-3.5 bg-slate-900/90 hover:bg-slate-800 text-white text-xs sm:text-sm font-heading font-bold uppercase tracking-wider rounded-sm border border-slate-700 transition-all active:scale-95 backdrop-blur-sm"
+                className="w-full sm:w-auto px-5 sm:px-6 py-3 sm:py-3.5 bg-slate-900/90 hover:bg-slate-800 text-white text-xs sm:text-sm font-heading font-bold uppercase tracking-wider rounded-xs border border-slate-700 transition-all active:scale-95 backdrop-blur-sm text-center flex items-center justify-center"
               >
                 <span>Explore Project Portfolio</span>
               </Link>
             </div>
           </div>
 
-          {/* Right Column: Key Industrial Execution Highlights */}
+          {/* Right Column: Key Industrial Execution Highlights (Desktop Only) */}
           <div className="lg:col-span-4 hidden lg:block space-y-3">
             <div className="bg-slate-950/85 backdrop-blur-md p-6 rounded-sm border border-slate-800 space-y-4 shadow-2xl">
               <div className="flex items-center justify-between border-b border-slate-800 pb-3">
@@ -253,24 +274,24 @@ export function HeroSlider() {
       </div>
 
       {/* Navigation Controls: Arrows and Dots */}
-      <div className="absolute bottom-4 sm:bottom-6 right-4 sm:right-8 z-20 flex items-center gap-2 sm:gap-3 bg-slate-950/80 px-3 sm:px-4 py-2 rounded-sm border border-slate-800/80 backdrop-blur-md shadow-lg">
+      <div className="absolute bottom-3 sm:bottom-6 right-3 sm:right-8 z-20 flex items-center gap-1.5 sm:gap-3 bg-slate-950/85 px-2.5 sm:px-4 py-1.5 sm:py-2 rounded-xs border border-slate-800 backdrop-blur-md shadow-lg">
         <button
           onClick={prevSlide}
-          className="p-1.5 text-slate-300 hover:text-white hover:bg-slate-800 rounded-xs transition-colors cursor-pointer"
+          className="p-1 sm:p-1.5 text-slate-300 hover:text-white hover:bg-slate-800 rounded-xs transition-colors cursor-pointer"
           aria-label="Previous Slide"
         >
-          <CaretLeft className="w-4 h-4 sm:w-5 sm:h-5" weight="bold" />
+          <CaretLeft className="w-3.5 h-3.5 sm:w-5 sm:h-5" weight="bold" />
         </button>
 
-        <div className="flex items-center gap-1.5 px-1">
+        <div className="flex items-center gap-1 sm:gap-1.5 px-0.5 sm:px-1">
           {slides.map((_, idx) => (
             <button
               key={idx}
               onClick={() => setCurrentSlide(idx)}
               className={`h-1.5 rounded-full transition-all cursor-pointer ${
                 idx === currentSlide
-                  ? "w-6 bg-amber-400"
-                  : "w-2 bg-slate-600 hover:bg-slate-400"
+                  ? "w-4 sm:w-6 bg-amber-400"
+                  : "w-1.5 sm:w-2 bg-slate-600 hover:bg-slate-400"
               }`}
               aria-label={`Go to slide ${idx + 1}`}
             />
@@ -279,10 +300,10 @@ export function HeroSlider() {
 
         <button
           onClick={nextSlide}
-          className="p-1.5 text-slate-300 hover:text-white hover:bg-slate-800 rounded-xs transition-colors cursor-pointer"
+          className="p-1 sm:p-1.5 text-slate-300 hover:text-white hover:bg-slate-800 rounded-xs transition-colors cursor-pointer"
           aria-label="Next Slide"
         >
-          <CaretRight className="w-4 h-4 sm:w-5 sm:h-5" weight="bold" />
+          <CaretRight className="w-3.5 h-3.5 sm:w-5 sm:h-5" weight="bold" />
         </button>
       </div>
     </section>
