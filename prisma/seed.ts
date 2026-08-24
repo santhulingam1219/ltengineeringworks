@@ -108,26 +108,8 @@ async function main() {
   }
   console.log("✅ Seeded Granular Permissions & Role Mappings");
 
-  // 3. DEFAULT SUPER ADMIN USER
-  const passwordHash = await bcrypt.hash("Admin@LT2026!", 10);
-  const superAdmin = await prisma.user.upsert({
-    where: { email: "admin@ltengineeringworks.com" },
-    update: {
-      fullName: "Lingam Tarakeswar Rao (Admin)",
-      phone: "7073877299",
-      roleId: roleMap["super_admin"],
-      isActive: true,
-    },
-    create: {
-      email: "admin@ltengineeringworks.com",
-      passwordHash,
-      fullName: "Lingam Tarakeswar Rao (Admin)",
-      phone: "7073877299",
-      roleId: roleMap["super_admin"],
-      isActive: true,
-    },
-  });
-  console.log("✅ Seeded Default Super Admin: admin@ltengineeringworks.com / Admin@LT2026!");
+  // 3. ROLES & PERMISSIONS READY (Users managed directly in Supabase)
+  console.log("✅ Roles and Permissions configured");
 
   // 4. PROJECT CATEGORIES
   const projectCategories = [

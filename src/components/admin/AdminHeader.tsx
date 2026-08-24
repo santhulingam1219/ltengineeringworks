@@ -8,9 +8,9 @@ interface AdminHeaderProps {
 }
 
 export function AdminHeader({
-  userName = "Staff Member",
-  userRole = "Administrator",
-  userEmail = "admin@ltengineeringworks.com",
+  userName = "Administrator",
+  userRole = "Super Admin",
+  userEmail = "",
 }: AdminHeaderProps) {
   return (
     <header className="bg-white border-b border-slate-200 h-16 px-4 sm:px-6 flex items-center justify-between shadow-xs sticky top-0 z-30">

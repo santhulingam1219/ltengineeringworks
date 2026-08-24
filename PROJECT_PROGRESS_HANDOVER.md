@@ -16,7 +16,7 @@
 * **Hotlines:** `+91 7073877299` / `+91 9963008256`
 * **Partner:** Lingam Duryodhana
 * **Manager:** Lingam Tarakeswar Rao
-* **Default Super Admin Login:** `admin@ltengineeringworks.com` / `Admin@LT2026!`
+* **Default Super Admin Login:** `admin@ltengineeringworks.com` / *(Configured securely via environment / initial setup)*
 
 ---
 
@@ -96,4 +96,4 @@ Executed via `node scripts/run-all-tests.js`: **34 passed, 0 failed (100% succes
 * **Production Compilation:** `npm run build` completed with **0 errors across all 48 routes**.
 * **Development Server:** `npm run dev` running locally at `http://localhost:3000`.
 * **Public Cloudflare Tunnel:** `https://reality-gotta-gains-landscape.trycloudflare.com`
-* **Super Admin Login:** `admin@ltengineeringworks.com` / `Admin@LT2026!`
+* **Super Admin Login:** `admin@ltengineeringworks.com` / *(Configured securely via environment / initial setup)*

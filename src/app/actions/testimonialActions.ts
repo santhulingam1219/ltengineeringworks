@@ -38,3 +38,34 @@ export async function createTestimonialAction(formData: FormData): Promise<void>
 
   redirect("/admin/testimonials");
 }
+
+export async function deleteTestimonialAction(id: string) {
+  try {
+    await db.testimonial.delete({ where: { id } });
+    revalidatePath("/about");
+    revalidatePath("/admin/testimonials");
+    return { success: true };
+  } catch (error: any) {
+    console.error("Delete testimonial error:", error);
+    return { success: false, error: error?.message || "Failed to delete testimonial." };
+  }
+}
+
+export async function toggleTestimonialFeaturedAction(id: string) {
+  try {
+    const item = await db.testimonial.findUnique({ where: { id } });
+    if (!item) return { success: false, error: "Testimonial not found." };
+
+    const updated = await db.testimonial.update({
+      where: { id },
+      data: { isFeatured: !item.isFeatured },
+    });
+
+    revalidatePath("/about");
+    revalidatePath("/admin/testimonials");
+    return { success: true, isFeatured: updated.isFeatured };
+  } catch (error: any) {
+    console.error("Toggle testimonial error:", error);
+    return { success: false, error: error?.message || "Failed to update status." };
+  }
+}

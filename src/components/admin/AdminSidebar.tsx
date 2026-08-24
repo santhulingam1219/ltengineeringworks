@@ -39,10 +39,10 @@ export function AdminSidebar({ userRole }: { userRole?: string }) {
   ];
 
   return (
-    <aside className="hidden md:flex w-64 bg-[#0B1120] text-slate-300 flex-col flex-shrink-0 border-r border-slate-800 min-h-screen">
+    <aside className="hidden md:flex w-64 bg-[#0B1120] text-slate-300 flex-col flex-shrink-0 border-r border-slate-800 h-full select-none z-20">
       {/* Brand Header */}
-      <div className="p-5 border-b border-slate-800 flex items-center justify-between">
-        <Link href="/admin" className="flex items-center gap-3">
+      <div className="p-5 border-b border-slate-800 flex items-center justify-between flex-shrink-0">
+        <Link href="/admin" prefetch={true} className="flex items-center gap-3">
           <div className="h-10 w-10 bg-white/95 rounded-sm p-1 flex items-center justify-center border border-amber-400/30 shadow-sm flex-shrink-0">
             <img
               src="/images/logo.webp"
@@ -61,8 +61,8 @@ export function AdminSidebar({ userRole }: { userRole?: string }) {
         </Link>
       </div>
 
-      {/* Navigation Links */}
-      <nav className="flex-1 px-3 py-4 space-y-1 overflow-y-auto">
+      {/* Navigation Links with route prefetching for zero-latency page transitions */}
+      <nav className="flex-1 px-3 py-4 space-y-1 overflow-y-auto scrollbar-thin">
         {navigation.map((item) => {
           const isActive = pathname === item.href || (item.href !== "/admin" && pathname.startsWith(item.href));
           const Icon = item.icon;
@@ -70,6 +70,7 @@ export function AdminSidebar({ userRole }: { userRole?: string }) {
             <Link
               key={item.name}
               href={item.href}
+              prefetch={true}
               className={`flex items-center gap-3 px-3 py-2.5 text-xs font-heading font-bold uppercase tracking-wider rounded-sm transition-all ${
                 isActive
                   ? "bg-amber-500 text-slate-950 shadow-sm"
@@ -84,10 +85,11 @@ export function AdminSidebar({ userRole }: { userRole?: string }) {
       </nav>
 
       {/* Bottom Actions */}
-      <div className="p-4 border-t border-slate-800 space-y-2">
+      <div className="p-4 border-t border-slate-800 space-y-2 flex-shrink-0">
         <Link
           href="/"
           target="_blank"
+          prefetch={false}
           className="flex items-center gap-2.5 px-3 py-2 text-xs font-mono text-slate-400 hover:text-white hover:bg-slate-800/40 rounded-sm transition-colors"
         >
           <Globe className="w-4 h-4 text-amber-400" />
