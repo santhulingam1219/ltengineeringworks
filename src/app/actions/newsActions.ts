@@ -41,6 +41,21 @@ export async function createNewsPostAction(formData: FormData): Promise<void> {
   redirect("/admin/news");
 }
 
+export async function toggleNewsStatusAction(id: string, newStatus: string) {
+  try {
+    await db.newsPost.update({
+      where: { id },
+      data: { status: newStatus },
+    });
+    revalidatePath("/news");
+    revalidatePath("/admin/news");
+    return { success: true };
+  } catch (error) {
+    console.error("Toggle news status error:", error);
+    return { success: false, error: "Failed to update news status." };
+  }
+}
+
 export async function deleteNewsPostAction(id: string) {
   try {
     await db.newsPost.delete({ where: { id } });

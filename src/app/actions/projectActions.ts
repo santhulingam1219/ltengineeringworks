@@ -224,6 +224,21 @@ export async function updateProjectAction(formData: FormData): Promise<void> {
   redirect("/admin/projects");
 }
 
+export async function toggleFeaturedProjectAction(id: string, isFeatured: boolean) {
+  try {
+    await db.project.update({
+      where: { id },
+      data: { isFeatured },
+    });
+    revalidatePath("/projects");
+    revalidatePath("/admin/projects");
+    return { success: true };
+  } catch (error) {
+    console.error("Toggle featured project error:", error);
+    return { success: false, error: "Failed to update featured status." };
+  }
+}
+
 export async function deleteProjectAction(id: string) {
   try {
     await db.project.update({
