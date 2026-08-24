@@ -115,10 +115,8 @@ export function HeroSlider() {
     const deltaX = touchStartX.current - touchEndX;
 
     if (deltaX > 45) {
-      // Swiped Left -> Next
       nextSlide();
     } else if (deltaX < -45) {
-      // Swiped Right -> Prev
       prevSlide();
     }
     touchStartX.current = null;
@@ -136,19 +134,19 @@ export function HeroSlider() {
 
   return (
     <section
-      className="relative bg-[#070D18] text-white overflow-hidden border-b border-slate-800 min-h-[520px] sm:min-h-[620px] lg:min-h-[660px] flex items-center select-none"
+      className="relative bg-[#070D18] text-white overflow-hidden border-b border-slate-800 min-h-[580px] sm:min-h-[620px] lg:min-h-[660px] flex items-end sm:items-center select-none"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
       onTouchStart={handleTouchStart}
       onTouchEnd={handleTouchEnd}
     >
-      {/* Background Image Carousel with Ultra-Smooth Crossfade & Responsive Mobile/Desktop Framing */}
+      {/* Background Image Carousel with Full Photographic Clarity */}
       {slides.map((s, index) => {
         const isActive = index === currentSlide;
         return (
           <div
             key={s.id}
-            className={`absolute inset-0 transition-opacity duration-1000 ease-in-out will-change-[opacity,transform] z-[1] ${
+            className={`absolute inset-0 transition-opacity duration-700 ease-in-out will-change-[opacity,transform] z-[1] ${
               isActive
                 ? "opacity-100 scale-100"
                 : "opacity-0 scale-105 pointer-events-none"
@@ -159,21 +157,44 @@ export function HeroSlider() {
               className="hidden md:block absolute inset-0 bg-cover bg-center"
               style={{ backgroundImage: `url('${s.image}')` }}
             />
-            {/* Mobile Portrait Background */}
+            {/* Mobile Portrait Background: Focused top alignment for industrial machinery */}
             <div
-              className="block md:hidden absolute inset-0 bg-cover bg-center"
+              className="block md:hidden absolute inset-0 bg-cover bg-top"
               style={{ backgroundImage: `url('${s.mobileImage}')` }}
             />
           </div>
         );
       })}
 
-      {/* Directional Gradient */}
-      <div className="absolute inset-0 bg-gradient-to-r from-[#070D18]/95 via-[#070D18]/80 via-55% to-slate-950/40 z-[2]" />
-      <div className="md:hidden absolute inset-0 bg-gradient-to-t from-[#070D18] via-[#070D18]/85 via-50% to-[#070D18]/40 z-[2]" />
+      {/* Desktop Gradient: Left dark for text legibility, clear on right for image */}
+      <div className="hidden md:block absolute inset-0 bg-gradient-to-r from-[#070D18]/95 via-[#070D18]/70 via-50% to-transparent z-[2]" />
+
+      {/* Mobile Gradient: Clean bottom scrim ONLY (top 60% of image is crystal clear & vibrant) */}
+      <div className="md:hidden absolute inset-0 bg-gradient-to-t from-[#070D18] from-50% via-[#070D18]/75 via-75% to-black/20 z-[2]" />
 
       {/* Decorative Gold Accent Header Line */}
       <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-amber-500 via-amber-400 to-blue-600 z-10" />
+
+      {/* Mobile Top Floating Slide Controls & Indicator */}
+      <div className="md:hidden absolute top-4 right-4 z-20 flex items-center gap-1.5 bg-slate-950/85 px-3 py-1.5 rounded-full border border-amber-500/50 backdrop-blur-md shadow-xl">
+        <button
+          onClick={prevSlide}
+          className="p-1 text-slate-300 hover:text-white active:scale-90 transition-transform cursor-pointer"
+          aria-label="Previous Slide"
+        >
+          <CaretLeft className="w-4 h-4 text-amber-400" weight="bold" />
+        </button>
+        <span className="text-[11px] font-mono font-bold text-white tracking-wider px-1">
+          0{currentSlide + 1} <span className="text-slate-500">/</span> 0{slides.length}
+        </span>
+        <button
+          onClick={nextSlide}
+          className="p-1 text-slate-300 hover:text-white active:scale-90 transition-transform cursor-pointer"
+          aria-label="Next Slide"
+        >
+          <CaretRight className="w-4 h-4 text-amber-400" weight="bold" />
+        </button>
+      </div>
 
       {/* Main Content Area */}
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-16 lg:py-24 w-full">
@@ -196,15 +217,15 @@ export function HeroSlider() {
 
             {/* Verification Badges (Responsive Mobile Flow) */}
             <div className="flex flex-wrap items-center gap-1.5 sm:gap-x-4 sm:gap-y-2 text-[10px] sm:text-xs font-mono text-slate-200 pt-0.5 sm:pt-1">
-              <div className="flex items-center gap-1.5 bg-slate-950/80 px-2 py-1 rounded-xs border border-slate-700/70 backdrop-blur-sm shadow-xs">
+              <div className="flex items-center gap-1.5 bg-slate-950/85 px-2 py-1 rounded-xs border border-slate-700/80 backdrop-blur-sm shadow-xs">
                 <CheckCircle className="w-3.5 h-3.5 text-emerald-400 flex-shrink-0" weight="fill" />
                 <span>{slide.badge1}</span>
               </div>
-              <div className="flex items-center gap-1.5 bg-slate-950/80 px-2 py-1 rounded-xs border border-slate-700/70 backdrop-blur-sm shadow-xs">
+              <div className="flex items-center gap-1.5 bg-slate-950/85 px-2 py-1 rounded-xs border border-slate-700/80 backdrop-blur-sm shadow-xs">
                 <ShieldCheck className="w-3.5 h-3.5 text-amber-400 flex-shrink-0" weight="fill" />
                 <span>{slide.badge2}</span>
               </div>
-              <div className="flex items-center gap-1.5 bg-slate-950/80 px-2 py-1 rounded-xs border border-slate-700/70 backdrop-blur-sm shadow-xs">
+              <div className="flex items-center gap-1.5 bg-slate-950/85 px-2 py-1 rounded-xs border border-slate-700/80 backdrop-blur-sm shadow-xs">
                 <Wrench className="w-3.5 h-3.5 text-blue-400 flex-shrink-0" weight="fill" />
                 <span>{slide.badge3}</span>
               </div>
@@ -225,6 +246,22 @@ export function HeroSlider() {
               >
                 <span>Explore Project Portfolio</span>
               </Link>
+            </div>
+
+            {/* Mobile Slide Dot Indicators (Centered Below Buttons) */}
+            <div className="md:hidden flex items-center justify-center gap-2 pt-2">
+              {slides.map((_, idx) => (
+                <button
+                  key={idx}
+                  onClick={() => setCurrentSlide(idx)}
+                  className={`h-1.5 rounded-full transition-all cursor-pointer ${
+                    idx === currentSlide
+                      ? "w-7 bg-amber-400 shadow-sm"
+                      : "w-2 bg-slate-600 hover:bg-slate-400"
+                  }`}
+                  aria-label={`Go to slide ${idx + 1}`}
+                />
+              ))}
             </div>
           </div>
 
@@ -273,25 +310,25 @@ export function HeroSlider() {
         </div>
       </div>
 
-      {/* Navigation Controls: Arrows and Dots */}
-      <div className="absolute bottom-3 sm:bottom-6 right-3 sm:right-8 z-20 flex items-center gap-1.5 sm:gap-3 bg-slate-950/85 px-2.5 sm:px-4 py-1.5 sm:py-2 rounded-xs border border-slate-800 backdrop-blur-md shadow-lg">
+      {/* Desktop Navigation Controls: Arrows and Dots (Bottom-Right) */}
+      <div className="hidden md:flex absolute bottom-6 right-8 z-20 items-center gap-3 bg-slate-950/85 px-4 py-2 rounded-xs border border-slate-800 backdrop-blur-md shadow-lg">
         <button
           onClick={prevSlide}
-          className="p-1 sm:p-1.5 text-slate-300 hover:text-white hover:bg-slate-800 rounded-xs transition-colors cursor-pointer"
+          className="p-1.5 text-slate-300 hover:text-white hover:bg-slate-800 rounded-xs transition-colors cursor-pointer"
           aria-label="Previous Slide"
         >
-          <CaretLeft className="w-3.5 h-3.5 sm:w-5 sm:h-5" weight="bold" />
+          <CaretLeft className="w-5 h-5" weight="bold" />
         </button>
 
-        <div className="flex items-center gap-1 sm:gap-1.5 px-0.5 sm:px-1">
+        <div className="flex items-center gap-1.5 px-1">
           {slides.map((_, idx) => (
             <button
               key={idx}
               onClick={() => setCurrentSlide(idx)}
               className={`h-1.5 rounded-full transition-all cursor-pointer ${
                 idx === currentSlide
-                  ? "w-4 sm:w-6 bg-amber-400"
-                  : "w-1.5 sm:w-2 bg-slate-600 hover:bg-slate-400"
+                  ? "w-6 bg-amber-400"
+                  : "w-2 bg-slate-600 hover:bg-slate-400"
               }`}
               aria-label={`Go to slide ${idx + 1}`}
             />
@@ -300,10 +337,10 @@ export function HeroSlider() {
 
         <button
           onClick={nextSlide}
-          className="p-1 sm:p-1.5 text-slate-300 hover:text-white hover:bg-slate-800 rounded-xs transition-colors cursor-pointer"
+          className="p-1.5 text-slate-300 hover:text-white hover:bg-slate-800 rounded-xs transition-colors cursor-pointer"
           aria-label="Next Slide"
         >
-          <CaretRight className="w-3.5 h-3.5 sm:w-5 sm:h-5" weight="bold" />
+          <CaretRight className="w-5 h-5" weight="bold" />
         </button>
       </div>
     </section>
