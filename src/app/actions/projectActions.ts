@@ -20,6 +20,8 @@ export async function createProjectAction(formData: FormData): Promise<void> {
   const scopeOfWork = (formData.get("scopeOfWork") as string)?.trim();
   const manpowerDeployed = (formData.get("manpowerDeployed") as string)?.trim();
   const duration = (formData.get("duration") as string)?.trim();
+  const coverImageUrl = (formData.get("coverImageUrl") as string)?.trim() || null;
+  const galleryImagesRaw = (formData.get("galleryImages") as string)?.trim();
   const isFeatured = formData.get("isFeatured") === "on";
 
   if (!name || !categoryId || !description) {
@@ -27,7 +29,7 @@ export async function createProjectAction(formData: FormData): Promise<void> {
   }
 
   try {
-    await db.project.create({
+    const project = await db.project.create({
       data: {
         name,
         slug,
@@ -39,8 +41,60 @@ export async function createProjectAction(formData: FormData): Promise<void> {
         scopeOfWork: scopeOfWork || null,
         manpowerDeployed: manpowerDeployed || null,
         duration: duration || null,
+        coverImageUrl,
         isFeatured,
         isPublished: true,
+      },
+    });
+
+    // Create cover image record if provided
+    if (coverImageUrl) {
+      const media = await db.mediaLibrary.findUnique({
+        where: { storagePath: coverImageUrl },
+      });
+
+      await db.projectImage.create({
+        data: {
+          projectId: project.id,
+          mediaId: media?.id || null,
+          imageUrl: coverImageUrl,
+          caption: `${name} Cover Photo`,
+          altText: name,
+          isCover: true,
+          displayOrder: 0,
+        },
+      });
+    }
+
+    // Process gallery images if provided
+    if (galleryImagesRaw) {
+      const urls = galleryImagesRaw.split(",").map(u => u.trim()).filter(Boolean);
+      for (let i = 0; i < urls.length; i++) {
+        const url = urls[i];
+        if (url !== coverImageUrl) {
+          const media = await db.mediaLibrary.findUnique({ where: { storagePath: url } });
+          await db.projectImage.create({
+            data: {
+              projectId: project.id,
+              mediaId: media?.id || null,
+              imageUrl: url,
+              caption: `${name} Gallery Photo #${i + 1}`,
+              altText: name,
+              isCover: false,
+              displayOrder: i + 1,
+            },
+          });
+        }
+      }
+    }
+
+    // Audit log
+    await db.activityLog.create({
+      data: {
+        action: "CREATE_PROJECT",
+        module: "projects",
+        recordId: project.id,
+        metadata: JSON.stringify({ name, slug, categoryId, coverImageUrl }),
       },
     });
 
@@ -65,6 +119,8 @@ export async function updateProjectAction(formData: FormData): Promise<void> {
   const scopeOfWork = (formData.get("scopeOfWork") as string)?.trim();
   const manpowerDeployed = (formData.get("manpowerDeployed") as string)?.trim();
   const duration = (formData.get("duration") as string)?.trim();
+  const coverImageUrl = (formData.get("coverImageUrl") as string)?.trim() || null;
+  const galleryImagesRaw = (formData.get("galleryImages") as string)?.trim();
   const isFeatured = formData.get("isFeatured") === "on";
 
   if (!id || !name || !categoryId || !description) {
@@ -84,11 +140,81 @@ export async function updateProjectAction(formData: FormData): Promise<void> {
         scopeOfWork: scopeOfWork || null,
         manpowerDeployed: manpowerDeployed || null,
         duration: duration || null,
+        coverImageUrl,
         isFeatured,
       },
     });
 
+    // Update cover image if changed
+    if (coverImageUrl) {
+      const existingCover = await db.projectImage.findFirst({
+        where: { projectId: id, isCover: true },
+      });
+
+      const media = await db.mediaLibrary.findUnique({
+        where: { storagePath: coverImageUrl },
+      });
+
+      if (existingCover) {
+        await db.projectImage.update({
+          where: { id: existingCover.id },
+          data: {
+            imageUrl: coverImageUrl,
+            mediaId: media?.id || null,
+          },
+        });
+      } else {
+        await db.projectImage.create({
+          data: {
+            projectId: id,
+            mediaId: media?.id || null,
+            imageUrl: coverImageUrl,
+            caption: `${name} Cover Photo`,
+            altText: name,
+            isCover: true,
+            displayOrder: 0,
+          },
+        });
+      }
+    }
+
+    // Process gallery images if provided
+    if (galleryImagesRaw) {
+      const urls = galleryImagesRaw.split(",").map(u => u.trim()).filter(Boolean);
+      for (let i = 0; i < urls.length; i++) {
+        const url = urls[i];
+        const exists = await db.projectImage.findFirst({
+          where: { projectId: id, imageUrl: url },
+        });
+        if (!exists) {
+          const media = await db.mediaLibrary.findUnique({ where: { storagePath: url } });
+          await db.projectImage.create({
+            data: {
+              projectId: id,
+              mediaId: media?.id || null,
+              imageUrl: url,
+              caption: `${name} Gallery Photo`,
+              altText: name,
+              isCover: false,
+              displayOrder: i + 1,
+            },
+          });
+        }
+      }
+    }
+
+    // Audit log
+    await db.activityLog.create({
+      data: {
+        action: "UPDATE_PROJECT",
+        module: "projects",
+        recordId: id,
+        metadata: JSON.stringify({ name, categoryId, coverImageUrl }),
+      },
+    });
+
     revalidatePath("/projects");
+    revalidatePath(`/projects/${id}`);
     revalidatePath("/admin/projects");
   } catch (error) {
     console.error("Update project error:", error);

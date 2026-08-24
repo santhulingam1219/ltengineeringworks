@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { createNewsPostAction } from "@/app/actions/newsActions";
 import { ArrowLeft, Plus } from "@phosphor-icons/react/dist/ssr";
+import { ImagePickerInput } from "@/components/admin/ImagePickerInput";
 
 export default function NewNewsPostPage() {
   return (
@@ -15,12 +16,12 @@ export default function NewNewsPostPage() {
         </Link>
       </div>
 
-      <div className="bg-white p-8 rounded-sm border border-slate-200 shadow-sm space-y-6">
+      <div className="bg-white p-6 sm:p-8 rounded-sm border border-slate-200 shadow-sm space-y-6">
         <div className="border-b border-slate-200 pb-4">
           <span className="text-xs font-mono font-bold text-amber-600 uppercase tracking-wider block">
             Company Communications CMS
           </span>
-          <h1 className="text-2xl font-heading font-black uppercase text-slate-900 tracking-tight mt-0.5">
+          <h1 className="text-xl sm:text-2xl font-heading font-black uppercase text-slate-900 tracking-tight mt-0.5">
             Create News / Announcement Post
           </h1>
         </div>
@@ -70,6 +71,18 @@ export default function NewNewsPostPage() {
                 <option value="draft">Save as Draft</option>
               </select>
             </div>
+          </div>
+
+          {/* Featured Image Selector */}
+          <div className="p-4 bg-slate-50 border border-slate-200 rounded-sm space-y-2">
+            <span className="text-xs font-mono font-bold text-amber-600 uppercase tracking-wider block">
+              Announcement Banner Image
+            </span>
+            <ImagePickerInput
+              name="featuredImageUrl"
+              label="Featured Post Image (Auto-Converts to WebP)"
+              category="news"
+            />
           </div>
 
           <div>

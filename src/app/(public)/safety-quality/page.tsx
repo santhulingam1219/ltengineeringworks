@@ -116,42 +116,64 @@ export default function SafetyQualityPage() {
           </div>
         </div>
 
-        {/* Live Site Safety & QA Photography Showcase */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div className="relative rounded-sm overflow-hidden border border-slate-300 bg-slate-900 h-80 sm:h-96 shadow-lg flex items-end p-4 sm:p-6 group">
+        {/* Live Site Safety & QA Photography Showcase (3-Card Visual Grid) */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {/* Card 1: Tool-box talk */}
+          <div className="relative rounded-sm overflow-hidden border border-slate-300 bg-slate-900 h-80 sm:h-96 shadow-lg flex items-end p-4 sm:p-5 group">
             <div
               className="absolute inset-0 bg-cover bg-center group-hover:scale-105 transition-transform duration-700"
               style={{ backgroundImage: `url('/images/safety-toolbox-talk.webp')` }}
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-slate-950/40 via-transparent to-transparent" />
-            <div className="relative z-10 w-full space-y-1.5 bg-slate-950/90 border border-slate-700/80 p-4 rounded-sm shadow-xl backdrop-blur-md">
+            <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/40 to-transparent" />
+            <div className="relative z-10 w-full space-y-1.5 bg-slate-950/80 border border-slate-700/80 p-3.5 rounded-sm shadow-xl backdrop-blur-md">
               <span className="px-2 py-0.5 bg-amber-500 text-slate-950 text-[10px] font-mono font-bold uppercase rounded-xs inline-block">
                 Daily Site Safety Protocol
               </span>
-              <h4 className="text-base sm:text-lg font-heading font-black uppercase text-white tracking-tight">
-                Morning Tool-Box Talk (TBT) Briefing
+              <h4 className="text-base font-heading font-black uppercase text-white tracking-tight leading-snug">
+                Morning Tool-Box Talk (TBT)
               </h4>
               <p className="text-xs text-slate-300 font-sans leading-relaxed">
-                Mandatory pre-shift hazard assessment, PPE inspection, and work permit verification with the site HSE officer.
+                Mandatory pre-shift hazard assessment, PPE inspection, and work permit sign-off.
               </p>
             </div>
           </div>
 
-          <div className="relative rounded-sm overflow-hidden border border-slate-300 bg-slate-900 h-80 sm:h-96 shadow-lg flex items-end p-4 sm:p-6 group">
+          {/* Card 2: On-site Inspection in Paradeep */}
+          <div className="relative rounded-sm overflow-hidden border border-slate-300 bg-slate-900 h-80 sm:h-96 shadow-lg flex items-end p-4 sm:p-5 group">
+            <div
+              className="absolute inset-0 bg-cover bg-center group-hover:scale-105 transition-transform duration-700"
+              style={{ backgroundImage: `url('/images/safety-inspection-odisha.webp')` }}
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/40 to-transparent" />
+            <div className="relative z-10 w-full space-y-1.5 bg-slate-950/80 border border-slate-700/80 p-3.5 rounded-sm shadow-xl backdrop-blur-md">
+              <span className="px-2 py-0.5 bg-emerald-500 text-slate-950 text-[10px] font-mono font-bold uppercase rounded-xs inline-block">
+                On-Site QA/QC Audits
+              </span>
+              <h4 className="text-base font-heading font-black uppercase text-white tracking-tight leading-snug">
+                Structural & Weld Inspection
+              </h4>
+              <p className="text-xs text-slate-300 font-sans leading-relaxed">
+                Certified safety engineers inspecting structural column welds and crane rigging in Paradeep.
+              </p>
+            </div>
+          </div>
+
+          {/* Card 3: Laser Alignment */}
+          <div className="relative rounded-sm overflow-hidden border border-slate-300 bg-slate-900 h-80 sm:h-96 shadow-lg flex items-end p-4 sm:p-5 group">
             <div
               className="absolute inset-0 bg-cover bg-center group-hover:scale-105 transition-transform duration-700"
               style={{ backgroundImage: `url('/images/laser-alignment-machine.webp')` }}
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-slate-950/40 via-transparent to-transparent" />
-            <div className="relative z-10 w-full space-y-1.5 bg-slate-950/90 border border-slate-700/80 p-4 rounded-sm shadow-xl backdrop-blur-md">
+            <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/40 to-transparent" />
+            <div className="relative z-10 w-full space-y-1.5 bg-slate-950/80 border border-slate-700/80 p-3.5 rounded-sm shadow-xl backdrop-blur-md">
               <span className="px-2 py-0.5 bg-blue-600 text-white text-[10px] font-mono font-bold uppercase rounded-xs inline-block">
-                QA / QC Precision Verification
+                Precision Calibration
               </span>
-              <h4 className="text-base sm:text-lg font-heading font-black uppercase text-white tracking-tight">
-                Laser Coupling & Rotary Shaft Alignment
+              <h4 className="text-base font-heading font-black uppercase text-white tracking-tight leading-snug">
+                Laser Rotary Shaft Alignment
               </h4>
               <p className="text-xs text-slate-300 font-sans leading-relaxed">
-                Calibrated optical alignment and dial indicator verification for heavy rotary pumps and compressors.
+                Calibrated optical alignment and dial indicator verification for heavy machinery.
               </p>
             </div>
           </div>

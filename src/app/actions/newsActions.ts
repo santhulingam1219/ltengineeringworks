@@ -10,6 +10,7 @@ export async function createNewsPostAction(formData: FormData): Promise<void> {
   const category = (formData.get("category") as string)?.trim() || "Company Update";
   const excerpt = (formData.get("excerpt") as string)?.trim();
   const content = (formData.get("content") as string)?.trim();
+  const featuredImageUrl = (formData.get("featuredImageUrl") as string)?.trim() || null;
   const status = (formData.get("status") as string)?.trim() || "published";
 
   if (!title || !content) {
@@ -24,6 +25,7 @@ export async function createNewsPostAction(formData: FormData): Promise<void> {
         category,
         excerpt: excerpt || null,
         content,
+        featuredImageUrl,
         status,
         publishedAt: new Date(),
       },

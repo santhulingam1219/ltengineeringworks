@@ -20,7 +20,8 @@ import {
   Globe, 
   SignOut,
   X,
-  UserCircle
+  UserCircle,
+  Plus
 } from "@phosphor-icons/react";
 import { logoutAdminAction } from "@/app/admin/actions/authActions";
 
@@ -55,7 +56,10 @@ export function AdminMobileAppNav({ userName = "Staff", userRole = "Admin" }: Ad
   return (
     <>
       {/* Mobile App Bottom Navigation Bar */}
-      <div className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-[#0B1120] border-t border-slate-800/90 px-2 py-1.5 flex items-center justify-around shadow-2xl backdrop-blur-lg">
+      <div 
+        style={{ paddingBottom: "max(0.375rem, env(safe-area-inset-bottom, 0px))" }}
+        className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-[#0B1120] border-t border-slate-800/90 px-2 pt-1.5 flex items-center justify-around shadow-2xl backdrop-blur-lg"
+      >
         {mainTabs.map((tab) => {
           const isActive = tab.exact 
             ? pathname === tab.href 
@@ -103,7 +107,7 @@ export function AdminMobileAppNav({ userName = "Staff", userRole = "Admin" }: Ad
       {/* Mobile App Full Drawer / Bottom Sheet */}
       {drawerOpen && (
         <div className="md:hidden fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-xs flex flex-col justify-end animate-in fade-in duration-150">
-          <div className="bg-[#0B1120] border-t border-slate-800 rounded-t-2xl max-h-[85vh] overflow-y-auto p-5 space-y-5 shadow-2xl">
+          <div className="bg-[#0B1120] border-t border-slate-800 rounded-t-2xl max-h-[88vh] overflow-y-auto p-5 space-y-4 shadow-2xl pb-8">
             {/* Drawer Header */}
             <div className="flex items-center justify-between border-b border-slate-800 pb-3">
               <div className="flex items-center gap-3">
@@ -128,12 +132,53 @@ export function AdminMobileAppNav({ userName = "Staff", userRole = "Admin" }: Ad
               </button>
             </div>
 
+            {/* Quick Create Shortcuts */}
+            <div className="space-y-1.5">
+              <span className="text-[10px] font-mono font-bold text-amber-400 uppercase tracking-wider block">
+                Quick Actions
+              </span>
+              <div className="grid grid-cols-3 gap-2">
+                <Link
+                  href="/admin/vacancies/new"
+                  onClick={() => setDrawerOpen(false)}
+                  className="p-2 bg-amber-500/20 hover:bg-amber-500/30 border border-amber-500/40 rounded-sm text-center active:scale-95 transition-all"
+                >
+                  <Plus className="w-4 h-4 text-amber-400 mx-auto mb-1" weight="bold" />
+                  <span className="text-[10px] font-heading font-bold text-white uppercase block">
+                    + Vacancy
+                  </span>
+                </Link>
+
+                <Link
+                  href="/admin/projects/new"
+                  onClick={() => setDrawerOpen(false)}
+                  className="p-2 bg-blue-500/20 hover:bg-blue-500/30 border border-blue-500/40 rounded-sm text-center active:scale-95 transition-all"
+                >
+                  <Plus className="w-4 h-4 text-blue-400 mx-auto mb-1" weight="bold" />
+                  <span className="text-[10px] font-heading font-bold text-white uppercase block">
+                    + Project
+                  </span>
+                </Link>
+
+                <Link
+                  href="/admin/news/new"
+                  onClick={() => setDrawerOpen(false)}
+                  className="p-2 bg-emerald-500/20 hover:bg-emerald-500/30 border border-emerald-500/40 rounded-sm text-center active:scale-95 transition-all"
+                >
+                  <Plus className="w-4 h-4 text-emerald-400 mx-auto mb-1" weight="bold" />
+                  <span className="text-[10px] font-heading font-bold text-white uppercase block">
+                    + News Post
+                  </span>
+                </Link>
+              </div>
+            </div>
+
             {/* Apps Grid */}
-            <div className="space-y-2">
+            <div className="space-y-1.5 pt-1">
               <span className="text-[10px] font-mono font-bold text-slate-500 uppercase tracking-wider block">
                 Modules & Operations
               </span>
-              <div className="grid grid-cols-3 gap-2.5">
+              <div className="grid grid-cols-3 gap-2">
                 {drawerItems.map((item) => {
                   const isActive = pathname.startsWith(item.href);
                   const Icon = item.icon;
@@ -143,14 +188,14 @@ export function AdminMobileAppNav({ userName = "Staff", userRole = "Admin" }: Ad
                       href={item.href}
                       prefetch={true}
                       onClick={() => setDrawerOpen(false)}
-                      className={`flex flex-col items-center justify-center p-3 rounded-sm border transition-all active:scale-95 text-center ${
+                      className={`flex flex-col items-center justify-center p-2.5 rounded-sm border transition-all active:scale-95 text-center ${
                         isActive
                           ? "bg-amber-500/20 border-amber-500/50 text-white"
                           : "bg-slate-900/90 border-slate-800 text-slate-300 hover:border-slate-700"
                       }`}
                     >
-                      <Icon className={`w-6 h-6 ${item.color} mb-1.5`} weight="bold" />
-                      <span className="text-[11px] font-heading font-bold uppercase tracking-tight leading-tight">
+                      <Icon className={`w-5 h-5 ${item.color} mb-1`} weight="bold" />
+                      <span className="text-[10px] font-heading font-bold uppercase tracking-tight leading-tight">
                         {item.name}
                       </span>
                     </Link>
@@ -159,7 +204,7 @@ export function AdminMobileAppNav({ userName = "Staff", userRole = "Admin" }: Ad
               </div>
             </div>
 
-            {/* Quick Actions */}
+            {/* Quick Actions & Logout */}
             <div className="pt-2 border-t border-slate-800 space-y-2 font-mono text-xs">
               <Link
                 href="/"

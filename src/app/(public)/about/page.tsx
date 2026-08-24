@@ -138,43 +138,62 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Facility & Work Front Photography Banner */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div className="relative rounded-sm overflow-hidden border border-slate-300 bg-slate-900 h-80 sm:h-96 shadow-md flex items-end p-4 sm:p-6 group">
+      {/* Facility & Work Front Photography Banner (3-Card Visual Grid) */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="relative rounded-sm overflow-hidden border border-slate-300 bg-slate-900 h-80 sm:h-96 shadow-md flex items-end p-4 sm:p-5 group">
             <div
               className="absolute inset-0 bg-cover bg-center group-hover:scale-105 transition-transform duration-700"
               style={{ backgroundImage: `url('/images/fabrication-workshop.webp')` }}
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-slate-950/40 via-transparent to-transparent" />
-            <div className="relative z-10 w-full space-y-1.5 bg-slate-950/90 border border-slate-700/80 p-4 rounded-sm shadow-xl backdrop-blur-md">
+            <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/40 to-transparent" />
+            <div className="relative z-10 w-full space-y-1.5 bg-slate-950/80 border border-slate-700/80 p-3.5 rounded-sm shadow-xl backdrop-blur-md">
               <span className="px-2 py-0.5 bg-amber-500 text-slate-950 text-[10px] font-mono font-bold uppercase rounded-xs inline-block">
-                Fabrication Workshop & Yard
+                Fabrication Yard
               </span>
-              <h4 className="text-base sm:text-lg font-heading font-black uppercase text-white tracking-tight">
-                Heavy Structural & Spool Pre-Fabrication
+              <h4 className="text-base font-heading font-black uppercase text-white tracking-tight leading-snug">
+                Heavy Structural & Spool Pre-Fab
               </h4>
               <p className="text-xs text-slate-300 font-sans leading-relaxed">
-                Equipped with overhead gantry cranes, precision saw cutting, plate bending, and certified 6G welding bays.
+                Overhead gantry cranes, precision sawing, plate bending, and 6G welding bays.
               </p>
             </div>
           </div>
 
-          <div className="relative rounded-sm overflow-hidden border border-slate-300 bg-slate-900 h-80 sm:h-96 shadow-md flex items-end p-4 sm:p-6 group">
+          <div className="relative rounded-sm overflow-hidden border border-slate-300 bg-slate-900 h-80 sm:h-96 shadow-md flex items-end p-4 sm:p-5 group">
             <div
               className="absolute inset-0 bg-cover bg-center group-hover:scale-105 transition-transform duration-700"
-              style={{ backgroundImage: `url('/images/piping-erection-site.webp')` }}
+              style={{ backgroundImage: `url('/images/plant-maintenance-shutdown.webp')` }}
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-slate-950/40 via-transparent to-transparent" />
-            <div className="relative z-10 w-full space-y-1.5 bg-slate-950/90 border border-slate-700/80 p-4 rounded-sm shadow-xl backdrop-blur-md">
+            <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/40 to-transparent" />
+            <div className="relative z-10 w-full space-y-1.5 bg-slate-950/80 border border-slate-700/80 p-3.5 rounded-sm shadow-xl backdrop-blur-md">
               <span className="px-2 py-0.5 bg-blue-600 text-white text-[10px] font-mono font-bold uppercase rounded-xs inline-block">
-                Refinery & Site Execution
+                Plant Turnarounds
               </span>
-              <h4 className="text-base sm:text-lg font-heading font-black uppercase text-white tracking-tight">
-                High-Pressure Piping & Shutdown Turnaround
+              <h4 className="text-base font-heading font-black uppercase text-white tracking-tight leading-snug">
+                Refinery & Shutdown Maintenance
               </h4>
               <p className="text-xs text-slate-300 font-sans leading-relaxed">
-                Rigorous NDT testing, 100% radiography pass rates, and hydrostatic pressure certification.
+                Emergency plant shutdowns, piping tie-ins, and 24/7 turnaround execution.
+              </p>
+            </div>
+          </div>
+
+          <div className="relative rounded-sm overflow-hidden border border-slate-300 bg-slate-900 h-80 sm:h-96 shadow-md flex items-end p-4 sm:p-5 group">
+            <div
+              className="absolute inset-0 bg-cover bg-center group-hover:scale-105 transition-transform duration-700"
+              style={{ backgroundImage: `url('/images/turbine-machinery-erection.webp')` }}
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/40 to-transparent" />
+            <div className="relative z-10 w-full space-y-1.5 bg-slate-950/80 border border-slate-700/80 p-3.5 rounded-sm shadow-xl backdrop-blur-md">
+              <span className="px-2 py-0.5 bg-emerald-500 text-slate-950 text-[10px] font-mono font-bold uppercase rounded-xs inline-block">
+                Equipment Erection
+              </span>
+              <h4 className="text-base font-heading font-black uppercase text-white tracking-tight leading-snug">
+                Turbine & Rotary Machinery
+              </h4>
+              <p className="text-xs text-slate-300 font-sans leading-relaxed">
+                Precision positioning, laser leveling, and mechanical alignment for heavy equipment.
               </p>
             </div>
           </div>
@@ -238,34 +257,6 @@ export default function AboutPage() {
 
       {/* Verified Client Testimonials */}
       <TestimonialsSection />
-
-      {/* Call to action */}
-      <section className="py-16 bg-[#0B1120] text-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6">
-          <h2 className="text-2xl sm:text-4xl font-heading font-black uppercase tracking-tight text-white">
-            Ready to Partner With LT Engineering Works?
-          </h2>
-          <p className="text-sm text-slate-300 max-w-xl mx-auto font-sans leading-relaxed">
-            Whether you require complete project execution or specialized trade manpower, our management is prepared to discuss your project requirements.
-          </p>
-          <div className="flex flex-wrap justify-center gap-4 pt-2">
-            <Link
-              href="/contact"
-              className="inline-flex items-center gap-2 px-6 py-3.5 bg-amber-500 hover:bg-amber-400 text-slate-950 font-heading font-bold uppercase tracking-wider text-xs rounded-sm shadow-md transition-all active:scale-[0.98]"
-            >
-              Post Project Enquiry
-              <ArrowRight className="w-4 h-4" weight="bold" />
-            </Link>
-            <Link
-              href="/projects"
-              className="inline-flex items-center gap-2 px-6 py-3.5 bg-slate-800 hover:bg-slate-700 text-white font-heading font-bold uppercase tracking-wider text-xs rounded-sm border border-slate-700 transition-all active:scale-[0.98]"
-            >
-              <Buildings className="w-4 h-4 text-amber-400" />
-              View 30+ Completed Projects
-            </Link>
-          </div>
-        </div>
-      </section>
 
     </div>
   );

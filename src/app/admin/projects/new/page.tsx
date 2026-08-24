@@ -2,6 +2,7 @@ import { db } from "@/lib/db";
 import Link from "next/link";
 import { createProjectAction } from "@/app/actions/projectActions";
 import { ArrowLeft, Plus } from "@phosphor-icons/react/dist/ssr";
+import { ImagePickerInput } from "@/components/admin/ImagePickerInput";
 
 export default async function NewProjectPage() {
   const categories = await db.projectCategory.findMany({
@@ -21,7 +22,7 @@ export default async function NewProjectPage() {
         </Link>
       </div>
 
-      <div className="bg-white p-8 rounded-sm border border-slate-200 shadow-sm space-y-6">
+      <div className="bg-white p-6 sm:p-8 rounded-sm border border-slate-200 shadow-sm space-y-6">
         <div className="border-b border-slate-200 pb-4">
           <span className="text-xs font-mono font-bold text-amber-600 uppercase tracking-wider block">
             Portfolio Management
@@ -41,7 +42,7 @@ export default async function NewProjectPage() {
                 type="text"
                 name="name"
                 required
-                placeholder="e.g. Industrial Structural Steel Fabrication & Erection"
+                placeholder="e.g. Industrial Structural Steel Fabrication & Erection Package"
                 className="w-full px-3.5 py-2.5 bg-white border border-slate-300 rounded-sm text-sm text-slate-900 focus:outline-none focus:ring-1 focus:ring-amber-500 focus:border-amber-500 font-sans"
               />
             </div>
@@ -125,6 +126,18 @@ export default async function NewProjectPage() {
                 className="w-full px-3.5 py-2.5 bg-white border border-slate-300 rounded-sm text-sm text-slate-900 focus:outline-none focus:ring-1 focus:ring-amber-500 focus:border-amber-500 font-sans"
               />
             </div>
+          </div>
+
+          {/* Project Primary Cover Photo */}
+          <div className="p-4 bg-slate-50 border border-slate-200 rounded-sm space-y-2">
+            <span className="text-xs font-mono font-bold text-amber-600 uppercase tracking-wider block">
+              Visual Presentation & Gallery
+            </span>
+            <ImagePickerInput
+              name="coverImageUrl"
+              label="Primary Project Cover Photo (Featured Image)"
+              category="project"
+            />
           </div>
 
           <div>
