@@ -66,6 +66,7 @@ export function AdminMobileAppNav({ userName = "Staff", userRole = "Admin" }: Ad
             <Link
               key={tab.name}
               href={tab.href}
+              prefetch={true}
               className={`flex flex-col items-center justify-center py-1 px-2 rounded-xs min-w-[58px] transition-all active:scale-95 ${
                 isActive
                   ? "text-amber-400 font-bold"
@@ -140,8 +141,9 @@ export function AdminMobileAppNav({ userName = "Staff", userRole = "Admin" }: Ad
                     <Link
                       key={item.name}
                       href={item.href}
+                      prefetch={true}
                       onClick={() => setDrawerOpen(false)}
-                      className={`flex flex-col items-center justify-center p-3 rounded-sm border transition-all text-center ${
+                      className={`flex flex-col items-center justify-center p-3 rounded-sm border transition-all active:scale-95 text-center ${
                         isActive
                           ? "bg-amber-500/20 border-amber-500/50 text-white"
                           : "bg-slate-900/90 border-slate-800 text-slate-300 hover:border-slate-700"

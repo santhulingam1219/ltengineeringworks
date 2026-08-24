@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { formatDate } from "@/lib/utils";
 import { ApplicationReviewDrawer } from "./ApplicationReviewDrawer";
-import { Eye, Phone } from "@phosphor-icons/react";
+import { Eye, Phone, MapPin, Briefcase, User } from "@phosphor-icons/react";
 
 interface ApplicationItem {
   id: string;
@@ -29,9 +29,86 @@ interface ApplicationItem {
 export function ApplicationsTable({ applications }: { applications: ApplicationItem[] }) {
   const [selectedApp, setSelectedApp] = useState<ApplicationItem | null>(null);
 
+  const getStatusBadge = (status: string) => {
+    const s = status.toLowerCase();
+    if (s === "new") return "bg-emerald-50 text-emerald-800 border-emerald-300";
+    if (s === "shortlisted") return "bg-blue-50 text-blue-800 border-blue-300";
+    if (s === "interviewed") return "bg-purple-50 text-purple-800 border-purple-300";
+    if (s === "hired") return "bg-amber-100 text-amber-900 border-amber-400";
+    return "bg-slate-100 text-slate-700 border-slate-300";
+  };
+
   return (
     <>
-      <div className="bg-white border border-slate-200 rounded-sm shadow-sm overflow-hidden">
+      {/* MOBILE CARD FEED (< 768px) */}
+      <div className="md:hidden space-y-3">
+        {applications.length === 0 ? (
+          <div className="p-8 text-center bg-white rounded-sm border border-slate-200 text-slate-500 font-mono text-xs">
+            No applications received yet.
+          </div>
+        ) : (
+          applications.map((app) => (
+            <div
+              key={app.id}
+              className="bg-white border border-slate-200 p-4 rounded-sm shadow-xs space-y-3"
+            >
+              <div className="flex items-start justify-between gap-2">
+                <div>
+                  <span className="text-[10px] font-mono text-slate-500 block">
+                    {app.applicationId}
+                  </span>
+                  <h3 className="font-heading font-bold text-slate-950 text-base leading-tight">
+                    {app.fullName}
+                  </h3>
+                  {app.qualification && (
+                    <span className="text-[11px] font-mono text-slate-500 block">
+                      {app.qualification}
+                    </span>
+                  )}
+                </div>
+
+                <span className={`inline-block px-2 py-0.5 text-[10px] font-mono font-bold uppercase rounded-xs border ${getStatusBadge(app.status)}`}>
+                  {app.status}
+                </span>
+              </div>
+
+              <div className="flex flex-wrap items-center gap-2 pt-1 border-t border-slate-100 text-xs">
+                <span className="bg-amber-50 text-amber-900 border border-amber-200 px-2 py-0.5 rounded-xs font-semibold">
+                  {app.positionAppliedFor}
+                </span>
+                <span className="text-slate-600 font-mono text-[11px]">
+                  Exp: <strong>{app.yearsOfExperience || "Fresh"}</strong>
+                </span>
+                <span className="text-slate-500 font-mono text-[11px] flex items-center gap-1">
+                  <MapPin className="w-3 h-3 text-amber-600" />
+                  {app.currentLocation || "Paradeep"}
+                </span>
+              </div>
+
+              <div className="flex items-center justify-between gap-2 pt-2 border-t border-slate-100">
+                <a
+                  href={`tel:${app.mobileNumber}`}
+                  className="flex-1 py-2 px-3 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-heading font-bold uppercase tracking-wider rounded-xs flex items-center justify-center gap-1.5 shadow-xs active:scale-95"
+                >
+                  <Phone className="w-3.5 h-3.5" weight="bold" />
+                  Call {app.mobileNumber}
+                </a>
+                <button
+                  type="button"
+                  onClick={() => setSelectedApp(app)}
+                  className="py-2 px-3.5 bg-slate-900 hover:bg-slate-800 text-amber-400 text-xs font-heading font-bold uppercase tracking-wider rounded-xs flex items-center justify-center gap-1 active:scale-95 cursor-pointer"
+                >
+                  <Eye className="w-3.5 h-3.5" />
+                  Review
+                </button>
+              </div>
+            </div>
+          ))
+        )}
+      </div>
+
+      {/* DESKTOP TABLE (>= 768px) */}
+      <div className="hidden md:block bg-white border border-slate-200 rounded-sm shadow-sm overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs border-collapse">
             <thead className="bg-slate-900 text-white font-heading font-bold uppercase tracking-wider text-[11px] border-b border-slate-800">
@@ -95,17 +172,7 @@ export function ApplicationsTable({ applications }: { applications: ApplicationI
                     </td>
 
                     <td className="p-3.5">
-                      <span
-                        className={`inline-block px-2 py-1 text-[10px] font-mono font-bold uppercase rounded-xs ${
-                          app.status === "new"
-                            ? "bg-amber-100 text-amber-800 border border-amber-300"
-                            : app.status === "shortlisted"
-                            ? "bg-blue-100 text-blue-800 border border-blue-300"
-                            : app.status === "selected" || app.status === "joined"
-                            ? "bg-emerald-100 text-emerald-800 border border-emerald-300"
-                            : "bg-slate-100 text-slate-700"
-                        }`}
-                      >
+                      <span className={`inline-block px-2 py-1 text-[10px] font-mono font-bold uppercase rounded-xs border ${getStatusBadge(app.status)}`}>
                         {app.status}
                       </span>
                     </td>
@@ -114,7 +181,7 @@ export function ApplicationsTable({ applications }: { applications: ApplicationI
                       <button
                         type="button"
                         onClick={() => setSelectedApp(app)}
-                        className="px-3 py-1.5 bg-slate-900 hover:bg-amber-500 hover:text-slate-950 text-white font-bold rounded-xs transition-all flex items-center gap-1 ml-auto cursor-pointer"
+                        className="px-3.5 py-1.5 bg-slate-900 hover:bg-amber-500 hover:text-slate-950 text-white font-bold rounded-xs transition-all flex items-center gap-1.5 ml-auto cursor-pointer"
                       >
                         <Eye className="w-3.5 h-3.5" />
                         Review
@@ -128,13 +195,11 @@ export function ApplicationsTable({ applications }: { applications: ApplicationI
         </div>
       </div>
 
+      {/* Review Drawer */}
       {selectedApp && (
         <ApplicationReviewDrawer
           application={selectedApp}
           onClose={() => setSelectedApp(null)}
-          onStatusUpdated={() => {
-            // Refreshes data dynamically
-          }}
         />
       )}
     </>

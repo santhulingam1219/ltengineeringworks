@@ -1,0 +1,12 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.ltengineeringworks.admin",
+      "sha256_cert_fingerprints": [
+        "14:6D:E9:7D:6D:75:A7:28:C0:CA:9D:69:B5:14:4E:91:7F:AC:6C:5B:74:6E:A4:44:81:49:50:88:EC:32:0C:6D"
+      ]
+    }
+  }
+]
