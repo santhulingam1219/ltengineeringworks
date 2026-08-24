@@ -19,6 +19,7 @@ interface SlideData {
   title: string;
   subtitle: string;
   image: string;
+  mobileImage: string;
   badge1: string;
   badge2: string;
   badge3: string;
@@ -32,6 +33,7 @@ const slides: SlideData[] = [
     title: "Heavy Structural Steel Fabrication & Erection",
     subtitle: "Complete mechanical execution of industrial steel frameworks, heavy trusses, column rigging, and plant infrastructure across Eastern India.",
     image: "/images/hero-steel-plant.webp",
+    mobileImage: "/images/hero-steel-plant-mobile.webp",
     badge1: "30+ Executed Projects",
     badge2: "GSTIN: 21AAFFL7905E1ZO",
     badge3: "Heavy Structural Yard",
@@ -47,6 +49,7 @@ const slides: SlideData[] = [
     title: "High-Elevation Rigging & Heavy Equipment Lifts",
     subtitle: "Certified heavy crane lift planning, equipment shifting, precision positioning, and laser coupling alignment for rotary equipment.",
     image: "/images/heavy-rigging-crane.webp",
+    mobileImage: "/images/heavy-rigging-crane-mobile.webp",
     badge1: "250T+ Crane Rigging",
     badge2: "Laser Shaft Alignment",
     badge3: "Zero-Harm Safety Record",
@@ -62,6 +65,7 @@ const slides: SlideData[] = [
     title: "High-Pressure Utility & Process Piping",
     subtitle: "Turnkey fabrication, isometric spool routing, 100% NDT radiography welding, and hydro-testing for refinery shutdown turnarounds.",
     image: "/images/piping-erection-site.webp",
+    mobileImage: "/images/piping-erection-mobile.webp",
     badge1: "6G Certified Welders",
     badge2: "100% Radiography Pass",
     badge3: "Hydrostatic Testing",
@@ -77,6 +81,7 @@ const slides: SlideData[] = [
     title: "Cylindrical Tank & Vessel Fabrication",
     subtitle: "Site erection and automatic seam welding of bulk petroleum storage tanks, pressure vessels, and chemical process hoppers.",
     image: "/images/tank-fabrication-yard.webp",
+    mobileImage: "/images/tank-fabrication-mobile.webp",
     badge1: "API 650 Standards",
     badge2: "Automatic Tank Welding",
     badge3: "Turnkey Industrial Tanks",
@@ -112,175 +117,173 @@ export function HeroSlider() {
 
   return (
     <section
-      className="relative bg-[#070D18] text-white overflow-hidden border-b border-slate-800 min-h-[620px] lg:min-h-[660px] flex items-center"
+      className="relative bg-[#070D18] text-white overflow-hidden border-b border-slate-800 min-h-[580px] sm:min-h-[620px] lg:min-h-[660px] flex items-center"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
     >
-      {/* Background Image Carousel with 100% Full Vibrance and Crisp Industrial Visuals */}
-      {slides.map((s, index) => (
-        <div
-          key={s.id}
-          className={`absolute inset-0 bg-cover bg-center transition-all duration-1000 ease-in-out ${
-            index === currentSlide
-              ? "opacity-100 scale-100 z-0"
-              : "opacity-0 scale-105 pointer-events-none -z-10"
-          }`}
-          style={{ backgroundImage: `url('${s.image}')` }}
-        />
-      ))}
+      {/* Background Image Carousel with Ultra-Smooth Crossfade & Responsive Mobile/Desktop Framing */}
+      {slides.map((s, index) => {
+        const isActive = index === currentSlide;
+        return (
+          <div
+            key={s.id}
+            className={`absolute inset-0 transition-opacity duration-1000 ease-in-out will-change-[opacity,transform] z-[1] ${
+              isActive
+                ? "opacity-100 scale-100"
+                : "opacity-0 scale-105 pointer-events-none"
+            }`}
+          >
+            {/* Desktop Landscape Background */}
+            <div
+              className="hidden md:block absolute inset-0 bg-cover bg-center"
+              style={{ backgroundImage: `url('${s.image}')` }}
+            />
+            {/* Mobile Portrait Background */}
+            <div
+              className="block md:hidden absolute inset-0 bg-cover bg-center"
+              style={{ backgroundImage: `url('${s.mobileImage}')` }}
+            />
+          </div>
+        );
+      })}
 
       {/* Directional Gradient: Dark on left behind text, 100% clear and bright on center/right for photography */}
-      <div className="absolute inset-0 bg-gradient-to-r from-[#070D18]/95 via-[#070D18]/70 via-40% to-transparent z-[2]" />
+      <div className="absolute inset-0 bg-gradient-to-r from-[#070D18]/95 via-[#070D18]/75 via-45% to-transparent z-[2]" />
+      <div className="md:hidden absolute inset-0 bg-gradient-to-t from-[#070D18]/95 via-[#070D18]/60 to-transparent z-[2]" />
 
       {/* Decorative Gold Accent Header Line */}
       <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-amber-500 via-amber-400 to-blue-600 z-10" />
 
       {/* Main Content Area */}
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24 w-full">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-24 w-full">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
           
           {/* Left Column: Core Value Proposition */}
-          <div className="lg:col-span-8 space-y-6">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-amber-500/20 border border-amber-500/50 rounded-sm text-amber-300 text-xs font-mono font-bold tracking-wider uppercase backdrop-blur-md shadow-sm">
-              <span className="w-2.5 h-2.5 rounded-full bg-amber-400 animate-pulse" />
+          <div className="lg:col-span-8 space-y-4 sm:space-y-6">
+            <div className="inline-flex items-center gap-2 px-3 py-1 sm:px-3.5 sm:py-1.5 bg-amber-500/20 border border-amber-500/50 rounded-sm text-amber-300 text-[11px] sm:text-xs font-mono font-bold tracking-wider uppercase backdrop-blur-md shadow-sm">
+              <span className="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-amber-400 animate-pulse" />
               {slide.tag}
             </div>
 
-            <h1 className="text-2xl sm:text-4xl lg:text-6xl font-heading font-black tracking-tight uppercase leading-[1.1] text-white drop-shadow-md min-h-[80px] sm:min-h-[130px]">
+            <h1 className="text-2xl sm:text-4xl lg:text-6xl font-heading font-black tracking-tight uppercase leading-[1.1] text-white drop-shadow-md min-h-[60px] sm:min-h-[130px]">
               {slide.title}
             </h1>
 
-            <p className="text-xs sm:text-base text-slate-200 font-sans max-w-2xl leading-relaxed drop-shadow-sm min-h-[40px] sm:min-h-[50px]">
+            <p className="text-xs sm:text-base text-slate-200 font-sans max-w-2xl leading-relaxed drop-shadow-sm min-h-[36px] sm:min-h-[50px]">
               {slide.subtitle}
             </p>
 
             {/* Verification Badges */}
-            <div className="flex flex-wrap items-center gap-2 sm:gap-x-6 sm:gap-y-2 text-[11px] sm:text-xs font-mono text-slate-200 pt-1">
+            <div className="flex flex-wrap items-center gap-2 sm:gap-x-6 sm:gap-y-2 text-[10px] sm:text-xs font-mono text-slate-200 pt-1">
               <div className="flex items-center gap-1.5 bg-slate-950/70 px-2.5 py-1 rounded-xs border border-slate-700/60 backdrop-blur-sm">
                 <CheckCircle className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-emerald-400" weight="fill" />
                 <span>{slide.badge1}</span>
               </div>
               <div className="flex items-center gap-1.5 bg-slate-950/70 px-2.5 py-1 rounded-xs border border-slate-700/60 backdrop-blur-sm">
-                <ShieldCheck className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-emerald-400" weight="fill" />
+                <ShieldCheck className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-amber-400" weight="fill" />
                 <span>{slide.badge2}</span>
               </div>
               <div className="flex items-center gap-1.5 bg-slate-950/70 px-2.5 py-1 rounded-xs border border-slate-700/60 backdrop-blur-sm">
-                <Wrench className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-amber-400" weight="fill" />
+                <Wrench className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-blue-400" weight="fill" />
                 <span>{slide.badge3}</span>
               </div>
             </div>
 
-            {/* CTA Action Buttons */}
-            <div className="flex flex-col sm:flex-row sm:flex-wrap items-stretch sm:items-center gap-3 sm:gap-4 pt-3">
+            {/* Call to Actions */}
+            <div className="flex flex-wrap items-center gap-3 pt-2">
               <Link
                 href="/contact"
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-amber-500 hover:bg-amber-400 text-slate-950 font-heading font-bold uppercase tracking-wider text-xs sm:text-sm rounded-sm transition-all shadow-lg active:scale-[0.98] cursor-pointer text-center"
+                className="px-5 sm:px-6 py-3 sm:py-3.5 bg-amber-500 hover:bg-amber-400 text-slate-950 text-xs sm:text-sm font-heading font-bold uppercase tracking-wider rounded-sm transition-all shadow-lg active:scale-95 flex items-center gap-2"
               >
-                Discuss Your Project
+                <span>Request Project Quotation</span>
                 <ArrowRight className="w-4 h-4" weight="bold" />
               </Link>
-
               <Link
                 href="/projects"
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-slate-900/90 hover:bg-slate-800 text-white font-heading font-bold uppercase tracking-wider text-xs sm:text-sm rounded-sm border border-slate-700 transition-all backdrop-blur-sm active:scale-[0.98] text-center"
+                className="px-5 sm:px-6 py-3 sm:py-3.5 bg-slate-900/90 hover:bg-slate-800 text-white text-xs sm:text-sm font-heading font-bold uppercase tracking-wider rounded-sm border border-slate-700 transition-all active:scale-95 backdrop-blur-sm"
               >
-                <Buildings className="w-4 h-4 text-amber-400" />
-                View 30+ Projects
-              </Link>
-
-              <Link
-                href="/careers"
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-3.5 bg-amber-500/10 hover:bg-amber-500/20 text-amber-400 font-heading font-bold uppercase tracking-wider text-xs sm:text-sm rounded-sm border border-amber-500/50 transition-all backdrop-blur-sm active:scale-[0.98] text-center"
-              >
-                <HardHat className="w-4 h-4 text-amber-400" />
-                Current Vacancies
+                <span>Explore Project Portfolio</span>
               </Link>
             </div>
           </div>
 
-          {/* Right Column: Execution Highlights Panel */}
-          <div className="lg:col-span-4 bg-slate-950/90 border border-slate-700/80 p-5 sm:p-6 rounded-sm space-y-4 sm:space-y-5 shadow-2xl backdrop-blur-md">
-            <div className="border-b border-slate-800 pb-3 flex items-center justify-between">
-              <div>
-                <span className="text-[10px] sm:text-[11px] font-mono text-amber-400 font-bold uppercase tracking-wider block">
-                  Capability Focus
+          {/* Right Column: Key Industrial Execution Highlights */}
+          <div className="lg:col-span-4 hidden lg:block space-y-3">
+            <div className="bg-slate-950/85 backdrop-blur-md p-6 rounded-sm border border-slate-800 space-y-4 shadow-2xl">
+              <div className="flex items-center justify-between border-b border-slate-800 pb-3">
+                <span className="text-xs font-mono font-bold text-amber-400 uppercase tracking-wider">
+                  Scope Execution
                 </span>
-                <h2 className="text-sm sm:text-base font-heading font-bold text-white uppercase mt-0.5">
-                  Scope #{slide.id} of {slides.length}
-                </h2>
+                <span className="text-[10px] font-mono text-slate-400">
+                  Slide {currentSlide + 1} of {slides.length}
+                </span>
               </div>
-              <span className="text-[10px] sm:text-xs font-mono font-bold px-2 py-0.5 bg-amber-500 text-slate-950 rounded-xs uppercase">
-                Ready
-              </span>
-            </div>
 
-            <ul className="space-y-3 sm:space-y-3.5 text-xs text-slate-300">
-              {slide.highlights.map((h, i) => (
-                <li key={i} className="flex items-start gap-2.5">
-                  <div className="w-5 h-5 rounded-xs bg-amber-500/20 border border-amber-500/40 flex items-center justify-center text-amber-400 font-mono font-bold text-[10px] mt-0.5 flex-shrink-0">
-                    {h.num}
+              <div className="space-y-3.5">
+                {slide.highlights.map((h, i) => (
+                  <div key={i} className="space-y-0.5">
+                    <div className="flex items-center gap-2">
+                      <span className="text-amber-500 font-mono font-bold text-xs">
+                        [{h.num}]
+                      </span>
+                      <h4 className="text-xs font-heading font-bold text-white uppercase tracking-tight">
+                        {h.title}
+                      </h4>
+                    </div>
+                    <p className="text-[11px] text-slate-300 font-sans pl-6 leading-snug">
+                      {h.desc}
+                    </p>
                   </div>
-                  <div>
-                    <strong className="text-white block font-semibold text-xs sm:text-sm">{h.title}</strong>
-                    <span className="text-slate-300 text-[10px] sm:text-[11px] leading-relaxed">{h.desc}</span>
-                  </div>
-                </li>
-              ))}
-            </ul>
+                ))}
+              </div>
 
-            <div className="pt-3 border-t border-slate-800 text-[10px] sm:text-[11px] font-mono text-slate-400 flex items-center justify-between">
-              <span>Operational Base:</span>
-              <span className="text-amber-400 font-bold">Sandhakuda, Paradeep</span>
+              <div className="pt-2 border-t border-slate-800">
+                <Link
+                  href="/services"
+                  className="text-xs font-heading font-bold text-amber-400 hover:text-amber-300 uppercase tracking-wider flex items-center justify-between group"
+                >
+                  <span>View Technical Capability</span>
+                  <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+                </Link>
+              </div>
             </div>
           </div>
 
         </div>
+      </div>
 
-        {/* Carousel Bottom Navigation Controls & Indicators */}
-        <div className="mt-8 sm:mt-12 pt-4 sm:pt-6 border-t border-slate-800/80 flex flex-wrap items-center justify-between gap-4">
-          
-          {/* Slide Indicator Dots */}
-          <div className="flex items-center gap-2">
-            {slides.map((s, index) => (
-              <button
-                key={s.id}
-                type="button"
-                onClick={() => setCurrentSlide(index)}
-                aria-label={`Go to slide ${index + 1}`}
-                className={`transition-all rounded-xs cursor-pointer ${
-                  index === currentSlide
-                    ? "w-8 sm:w-10 h-2 bg-amber-500"
-                    : "w-2.5 h-2 bg-slate-700 hover:bg-slate-500"
-                }`}
-              />
-            ))}
-            <span className="text-xs font-mono text-slate-400 ml-2">
-              0{currentSlide + 1} / 0{slides.length}
-            </span>
-          </div>
+      {/* Navigation Controls: Arrows and Dots */}
+      <div className="absolute bottom-4 sm:bottom-6 right-4 sm:right-8 z-20 flex items-center gap-2 sm:gap-3 bg-slate-950/80 px-3 sm:px-4 py-2 rounded-sm border border-slate-800/80 backdrop-blur-md shadow-lg">
+        <button
+          onClick={prevSlide}
+          className="p-1.5 text-slate-300 hover:text-white hover:bg-slate-800 rounded-xs transition-colors cursor-pointer"
+          aria-label="Previous Slide"
+        >
+          <CaretLeft className="w-4 h-4 sm:w-5 sm:h-5" weight="bold" />
+        </button>
 
-          {/* Previous / Next Arrow Buttons (Enlarged touch targets >= 44px) */}
-          <div className="flex items-center gap-2">
+        <div className="flex items-center gap-1.5 px-1">
+          {slides.map((_, idx) => (
             <button
-              type="button"
-              onClick={prevSlide}
-              aria-label="Previous Slide"
-              className="p-3 bg-slate-900/90 hover:bg-amber-500 hover:text-slate-950 text-white rounded-xs border border-slate-700 transition-all cursor-pointer shadow-md active:scale-95 min-h-[44px] min-w-[44px] flex items-center justify-center"
-            >
-              <CaretLeft className="w-4 h-4" weight="bold" />
-            </button>
-            <button
-              type="button"
-              onClick={nextSlide}
-              aria-label="Next Slide"
-              className="p-3 bg-slate-900/90 hover:bg-amber-500 hover:text-slate-950 text-white rounded-xs border border-slate-700 transition-all cursor-pointer shadow-md active:scale-95 min-h-[44px] min-w-[44px] flex items-center justify-center"
-            >
-              <CaretRight className="w-4 h-4" weight="bold" />
-            </button>
-          </div>
-
+              key={idx}
+              onClick={() => setCurrentSlide(idx)}
+              className={`h-1.5 rounded-full transition-all cursor-pointer ${
+                idx === currentSlide
+                  ? "w-6 bg-amber-400"
+                  : "w-2 bg-slate-600 hover:bg-slate-400"
+              }`}
+              aria-label={`Go to slide ${idx + 1}`}
+            />
+          ))}
         </div>
 
+        <button
+          onClick={nextSlide}
+          className="p-1.5 text-slate-300 hover:text-white hover:bg-slate-800 rounded-xs transition-colors cursor-pointer"
+          aria-label="Next Slide"
+        >
+          <CaretRight className="w-4 h-4 sm:w-5 sm:h-5" weight="bold" />
+        </button>
       </div>
     </section>
   );

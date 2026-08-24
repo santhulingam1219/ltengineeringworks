@@ -2,6 +2,8 @@
 
 import { db } from "@/lib/db";
 import { revalidatePath } from "next/cache";
+import fs from "fs/promises";
+import path from "path";
 
 export interface ApplicationResult {
   success: boolean;
@@ -12,7 +14,7 @@ export interface ApplicationResult {
 }
 
 /**
- * Handle worker job application submission
+ * Handle worker job application submission with optional Resume/Bio-Data file
  */
 export async function submitWorkerApplicationAction(
   prevState: unknown,
@@ -48,12 +50,55 @@ export async function submitWorkerApplicationAction(
     };
   }
 
+  // Handle Resume File Upload (PDF/Word, Max 5MB)
+  let resumeFileUrl: string | null = null;
+  let resumeFileName: string | null = null;
+
+  const resumeFile = formData.get("resume") as File | null;
+  if (resumeFile && resumeFile.size > 0 && typeof resumeFile.name === "string") {
+    // 5MB Limit Validation
+    if (resumeFile.size > 5 * 1024 * 1024) {
+      return {
+        success: false,
+        error: "Resume file size exceeds the 5MB limit. Please upload a smaller file.",
+      };
+    }
+
+    // Allowed Extensions Validation (.pdf, .doc, .docx)
+    const allowedExtensions = [".pdf", ".doc", ".docx"];
+    const ext = path.extname(resumeFile.name).toLowerCase();
+    if (!allowedExtensions.includes(ext)) {
+      return {
+        success: false,
+        error: "Invalid resume format. Only PDF (.pdf) and Word documents (.doc, .docx) are accepted.",
+      };
+    }
+
+    try {
+      const uploadDir = path.join(process.cwd(), "public", "uploads", "resumes");
+      await fs.mkdir(uploadDir, { recursive: true });
+
+      const sanitizedOriginalName = resumeFile.name.replace(/[^a-zA-Z0-9._-]/g, "_");
+      const uniqueFileName = `LT-Resume-${Date.now()}-${sanitizedOriginalName}`;
+      const filePath = path.join(uploadDir, uniqueFileName);
+
+      const arrayBuffer = await resumeFile.arrayBuffer();
+      const buffer = Buffer.from(arrayBuffer);
+      await fs.writeFile(filePath, buffer);
+
+      resumeFileUrl = `/uploads/resumes/${uniqueFileName}`;
+      resumeFileName = resumeFile.name;
+    } catch (uploadErr) {
+      console.warn("Resume file storage error (will continue application):", uploadErr);
+    }
+  }
+
   try {
     const year = new Date().getFullYear();
     const count = await db.application.count();
     const applicationId = `LT-${year}-${String(count + 1).padStart(6, "0")}`;
 
-    await db.application.create({
+    const newApp = await db.application.create({
       data: {
         applicationId,
         vacancyId,
@@ -70,9 +115,22 @@ export async function submitWorkerApplicationAction(
         previousCompany,
         joiningAvailability,
         additionalInfo,
+        resumeFileUrl,
+        resumeFileName,
         status: "new",
       },
     });
+
+    if (resumeFileUrl && resumeFileName) {
+      await db.applicationDocument.create({
+        data: {
+          applicationId: newApp.id,
+          documentType: "resume",
+          fileUrl: resumeFileUrl,
+          fileName: resumeFileName,
+        },
+      });
+    }
 
     revalidatePath("/admin/applications");
 

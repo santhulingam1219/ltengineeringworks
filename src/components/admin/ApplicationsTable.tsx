@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { formatDate } from "@/lib/utils";
 import { ApplicationReviewDrawer } from "./ApplicationReviewDrawer";
-import { Eye, Phone, MapPin, Briefcase, User } from "@phosphor-icons/react";
+import { Eye, Phone, MapPin, Briefcase, User, FileText, Paperclip } from "@phosphor-icons/react";
 
 interface ApplicationItem {
   id: string;
@@ -21,6 +21,8 @@ interface ApplicationItem {
   previousCompany?: string | null;
   joiningAvailability?: string | null;
   additionalInfo?: string | null;
+  resumeFileUrl?: string | null;
+  resumeFileName?: string | null;
   status: string;
   createdAt: Date;
   notes?: any[];
@@ -54,10 +56,18 @@ export function ApplicationsTable({ applications }: { applications: ApplicationI
             >
               <div className="flex items-start justify-between gap-2">
                 <div>
-                  <span className="text-[10px] font-mono text-slate-500 block">
-                    {app.applicationId}
-                  </span>
-                  <h3 className="font-heading font-bold text-slate-950 text-base leading-tight">
+                  <div className="flex items-center gap-1.5">
+                    <span className="text-[10px] font-mono text-slate-500">
+                      {app.applicationId}
+                    </span>
+                    {app.resumeFileUrl && (
+                      <span className="inline-flex items-center gap-0.5 text-[9px] font-mono text-amber-700 bg-amber-50 border border-amber-200 px-1.5 py-0.2 rounded-xs font-bold">
+                        <Paperclip className="w-2.5 h-2.5" />
+                        CV
+                      </span>
+                    )}
+                  </div>
+                  <h3 className="font-heading font-bold text-slate-950 text-base leading-tight mt-0.5">
                     {app.fullName}
                   </h3>
                   {app.qualification && (
@@ -118,7 +128,7 @@ export function ApplicationsTable({ applications }: { applications: ApplicationI
                 <th className="p-3.5">Position Applied</th>
                 <th className="p-3.5">Mobile Contact</th>
                 <th className="p-3.5">Experience</th>
-                <th className="p-3.5">Location</th>
+                <th className="p-3.5">Resume / Bio-Data</th>
                 <th className="p-3.5">Applied Date</th>
                 <th className="p-3.5">Status</th>
                 <th className="p-3.5 text-right">Review Action</th>
@@ -163,8 +173,21 @@ export function ApplicationsTable({ applications }: { applications: ApplicationI
                       {app.yearsOfExperience || "Not specified"}
                     </td>
 
-                    <td className="p-3.5 font-mono text-slate-600">
-                      {app.currentLocation || "Paradeep Area"}
+                    <td className="p-3.5 font-mono">
+                      {app.resumeFileUrl ? (
+                        <a
+                          href={app.resumeFileUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          download={app.resumeFileName || true}
+                          className="inline-flex items-center gap-1 px-2 py-1 bg-amber-50 hover:bg-amber-100 text-amber-900 border border-amber-300 rounded-xs text-[11px] font-bold transition-colors"
+                        >
+                          <Paperclip className="w-3 h-3 text-amber-700" weight="bold" />
+                          <span>Download CV</span>
+                        </a>
+                      ) : (
+                        <span className="text-slate-400 text-[11px]">Form only</span>
+                      )}
                     </td>
 
                     <td className="p-3.5 font-mono text-slate-500 text-[11px]">

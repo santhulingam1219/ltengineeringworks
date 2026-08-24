@@ -65,6 +65,55 @@
   border: 1px solid var(--color-slate-border);
 }
 
+/* Ultra-Smooth Marquee Scroll */
+@keyframes marqueeScroll {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-marquee-smooth {
+  display: inline-flex;
+  white-space: nowrap;
+  animation: marqueeScroll 24s linear infinite;
+  will-change: transform;
+}
+
+.animate-marquee-smooth:hover {
+  animation-play-state: paused;
+}
+
+/* Card Metallic Sheen & Hover Glow */
+.card-industrial-glow {
+  position: relative;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.35s ease;
+}
+
+.card-industrial-glow:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 32px -8px rgba(15, 23, 42, 0.12), 0 0 0 1px rgba(245, 158, 11, 0.4);
+}
+
+.card-industrial-glow-dark {
+  position: relative;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.35s ease;
+}
+
+.card-industrial-glow-dark:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.5), 0 0 24px -4px rgba(245, 158, 11, 0.25);
+  border-color: rgba(245, 158, 11, 0.6);
+}
+
+/* Timeline Pulse Glow */
+@keyframes timelinePulse {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 1; }
+}
+
+.animate-timeline-pulse {
+  animation: timelinePulse 3s ease-in-out infinite;
+}
+
 /* Tactile Button Feedback */
 .btn-tactile:active {
   transform: scale(0.98);

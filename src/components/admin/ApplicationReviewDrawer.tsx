@@ -14,7 +14,10 @@ import {
   XCircle, 
   User, 
   FileText,
-  ChatCircleText
+  ChatCircleText,
+  DownloadSimple,
+  FileDoc,
+  FilePdf
 } from "@phosphor-icons/react";
 
 interface ApplicationNote {
@@ -42,6 +45,8 @@ interface ApplicationData {
   previousCompany?: string | null;
   joiningAvailability?: string | null;
   additionalInfo?: string | null;
+  resumeFileUrl?: string | null;
+  resumeFileName?: string | null;
   status: string;
   createdAt: Date;
   notes?: ApplicationNote[];
@@ -63,39 +68,56 @@ export function ApplicationReviewDrawer({
 
   if (!application) return null;
 
+  const statuses = [
+    "new",
+    "under_review",
+    "shortlisted",
+    "interviewed",
+    "selected",
+    "hired",
+    "rejected",
+    "on_hold",
+  ];
+
   const handleStatusChange = async (newStatus: string) => {
     setIsUpdating(true);
     setFeedback(null);
     try {
-      const res = await updateApplicationStatusAction(application.id, newStatus, undefined, noteText.trim() || undefined);
+      const res = await updateApplicationStatusAction(
+        application.id,
+        newStatus,
+        undefined,
+        noteText.trim() ? noteText : undefined
+      );
+
       if (res.success) {
         setCurrentStatus(newStatus);
-        setFeedback(`Status successfully updated to ${newStatus.replace("_", " ")}.`);
-        setNoteText("");
+        setFeedback(`Status updated to ${newStatus.toUpperCase()}`);
+        if (noteText.trim()) setNoteText("");
         if (onStatusUpdated) onStatusUpdated();
       } else {
         setFeedback("Failed to update status.");
       }
-    } catch {
-      setFeedback("Error occurred updating application.");
+    } catch (err) {
+      setFeedback("Error occurred while updating.");
     } finally {
       setIsUpdating(false);
     }
   };
 
   return (
-    <div className="fixed inset-0 z-50 overflow-hidden bg-slate-950/60 backdrop-blur-xs flex justify-end">
-      <div className="w-full max-w-xl bg-white h-full shadow-2xl flex flex-col justify-between overflow-y-auto animate-in slide-in-from-right duration-200">
+    <div className="fixed inset-0 z-50 overflow-hidden bg-slate-950/60 backdrop-blur-xs flex justify-end animate-in fade-in duration-200">
+      <div className="w-full max-w-xl bg-white h-full shadow-2xl flex flex-col justify-between border-l border-slate-200 overflow-y-auto">
         
         {/* Drawer Header */}
-        <div className="p-6 bg-slate-900 text-white flex items-center justify-between border-b border-slate-800">
+        <div className="p-6 bg-slate-900 text-white flex items-center justify-between sticky top-0 z-10 border-b border-slate-800">
           <div>
             <div className="flex items-center gap-2">
-              <span className="px-2 py-0.5 bg-amber-500 text-slate-950 font-mono font-bold text-xs rounded-xs">
+              <span className="text-xs font-mono text-amber-400 font-bold uppercase">
                 {application.applicationId}
               </span>
-              <span className="text-xs font-mono text-slate-400">
-                Applied: {formatDate(application.createdAt)}
+              <span className="text-[10px] font-mono bg-slate-800 text-slate-300 px-2 py-0.5 rounded-xs border border-slate-700">
+                {formatDate(application.createdAt)}
               </span>
             </div>
             <h2 className="text-xl font-heading font-black uppercase text-white mt-1">
@@ -105,7 +127,7 @@ export function ApplicationReviewDrawer({
 
           <button
             onClick={onClose}
-            className="p-2 text-slate-400 hover:text-white rounded-sm hover:bg-slate-800 transition-colors"
+            className="p-2 text-slate-400 hover:text-white hover:bg-slate-800 rounded-sm cursor-pointer transition-colors"
           >
             <X className="w-5 h-5" />
           </button>
@@ -113,29 +135,23 @@ export function ApplicationReviewDrawer({
 
         {/* Drawer Body */}
         <div className="p-6 space-y-6 flex-1">
-          
-          {/* Status Badge & Actions */}
-          <div className="p-4 bg-slate-50 border border-slate-200 rounded-sm space-y-3">
-            <div className="flex items-center justify-between">
-              <span className="text-xs font-heading font-bold uppercase text-slate-700">
-                Recruitment Pipeline Status
-              </span>
-              <span className="px-2.5 py-1 text-xs font-mono font-bold uppercase bg-amber-100 text-amber-800 rounded-xs border border-amber-300">
-                {currentStatus.replace("_", " ")}
-              </span>
-            </div>
 
-            <div className="flex flex-wrap gap-2 pt-2 border-t border-slate-200">
-              {["new", "under_review", "shortlisted", "selected", "joined", "rejected"].map((st) => (
+          {/* Quick Status Bar */}
+          <div className="p-4 bg-slate-50 border border-slate-200 rounded-sm space-y-2">
+            <span className="text-[10px] font-mono uppercase text-slate-500 block font-bold">
+              Current Hiring Status: <strong className="text-amber-700 uppercase">{currentStatus.replace("_", " ")}</strong>
+            </span>
+            <div className="flex flex-wrap gap-1.5 pt-1">
+              {statuses.map((st) => (
                 <button
                   key={st}
                   type="button"
                   disabled={isUpdating}
                   onClick={() => handleStatusChange(st)}
-                  className={`px-3 py-1.5 text-xs font-mono font-bold uppercase rounded-xs transition-all ${
+                  className={`px-2.5 py-1 text-[10px] font-mono font-bold uppercase rounded-xs transition-colors cursor-pointer ${
                     currentStatus === st
-                      ? "bg-slate-900 text-white shadow-xs"
-                      : "bg-white border border-slate-300 text-slate-700 hover:bg-slate-100"
+                      ? "bg-slate-900 text-amber-400 border border-slate-900 shadow-xs"
+                      : "bg-white text-slate-700 border border-slate-300 hover:bg-slate-100"
                   }`}
                 >
                   {st.replace("_", " ")}
@@ -147,6 +163,56 @@ export function ApplicationReviewDrawer({
               <p className="text-xs font-mono text-emerald-700 bg-emerald-50 p-2 rounded-xs border border-emerald-200">
                 {feedback}
               </p>
+            )}
+          </div>
+
+          {/* Attached Resume / Bio-Data Section */}
+          <div className="space-y-2">
+            <h3 className="text-xs font-heading font-bold uppercase tracking-wider text-slate-900 border-b border-slate-200 pb-1 flex items-center justify-between">
+              <span>Candidate Resume / Bio-Data Document</span>
+              {application.resumeFileUrl && (
+                <span className="text-[10px] font-mono text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-xs border border-emerald-200">
+                  Document Attached
+                </span>
+              )}
+            </h3>
+
+            {application.resumeFileUrl ? (
+              <div className="p-4 bg-amber-500/10 border border-amber-500/30 rounded-sm space-y-2.5">
+                <div className="flex items-center justify-between gap-2">
+                  <div className="flex items-center gap-2 min-w-0">
+                    {application.resumeFileName?.toLowerCase().endsWith(".pdf") ? (
+                      <FilePdf className="w-6 h-6 text-red-600 flex-shrink-0" weight="fill" />
+                    ) : (
+                      <FileDoc className="w-6 h-6 text-blue-600 flex-shrink-0" weight="fill" />
+                    )}
+                    <div className="min-w-0">
+                      <span className="text-xs font-heading font-bold text-slate-900 block truncate">
+                        {application.resumeFileName || "Candidate_Resume.pdf"}
+                      </span>
+                      <span className="text-[10px] font-mono text-slate-500 block">
+                        Direct document upload from candidate application form
+                      </span>
+                    </div>
+                  </div>
+
+                  <a
+                    href={application.resumeFileUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    download={application.resumeFileName || true}
+                    className="px-3.5 py-2 bg-amber-500 hover:bg-amber-400 text-slate-950 text-xs font-heading font-bold uppercase rounded-xs transition-colors flex items-center gap-1.5 flex-shrink-0 shadow-xs active:scale-95"
+                  >
+                    <DownloadSimple className="w-4 h-4" weight="bold" />
+                    <span>Download</span>
+                  </a>
+                </div>
+              </div>
+            ) : (
+              <div className="p-3 bg-slate-50 border border-slate-200 rounded-sm text-xs font-mono text-slate-500 flex items-center gap-2">
+                <FileText className="w-4 h-4 text-slate-400" />
+                <span>No separate resume file attached (Candidate submitted details via form).</span>
+              </div>
             )}
           </div>
 
@@ -244,7 +310,7 @@ export function ApplicationReviewDrawer({
           </a>
           <button
             onClick={onClose}
-            className="px-4 py-2 bg-white border border-slate-300 hover:bg-slate-50 text-slate-700 font-bold rounded-sm"
+            className="px-4 py-2 bg-white border border-slate-300 hover:bg-slate-50 text-slate-700 font-bold rounded-sm cursor-pointer"
           >
             Close
           </button>

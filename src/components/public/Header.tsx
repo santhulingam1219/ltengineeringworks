@@ -37,8 +37,8 @@ export function Header() {
 
   return (
     <header className="w-full bg-[#0B1120] text-slate-100 sticky top-0 z-50 border-b border-slate-800 shadow-xl backdrop-blur-md">
-      {/* Top Utility Bar */}
-      <div className="bg-slate-950/95 border-b border-slate-800/80 py-1.5 px-4 sm:px-6 lg:px-8 xl:px-12 text-[11px] font-mono">
+      {/* Top Utility Bar (Hidden on Mobile) */}
+      <div className="hidden md:block bg-slate-950/95 border-b border-slate-800/80 py-1.5 px-4 sm:px-6 lg:px-8 xl:px-12 text-[11px] font-mono">
         <div className="max-w-[1480px] mx-auto flex flex-wrap justify-between items-center gap-2">
           <div className="flex items-center gap-4 text-slate-400">
             <span className="flex items-center gap-1.5 text-slate-300">
