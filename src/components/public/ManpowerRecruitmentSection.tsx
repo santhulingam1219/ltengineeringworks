@@ -15,10 +15,9 @@ export function ManpowerRecruitmentSection() {
 
   return (
     <section className="py-20 bg-slate-900 text-white border-b border-slate-800 relative overflow-hidden">
-      {/* Background Image Texture */}
+      {/* Background Image Texture (Mobile & Desktop Variants) */}
       <div 
-        className="absolute inset-0 bg-cover bg-center opacity-35 pointer-events-none"
-        style={{ backgroundImage: `url('/images/manpower-crew-team.webp')` }}
+        className="absolute inset-0 bg-cover bg-center opacity-35 pointer-events-none bg-[url('/images/manpower-deployment-mobile.webp')] sm:bg-[url('/images/manpower-crew-team.webp')]"
       />
       <div className="absolute inset-0 technical-grid-dark opacity-20 pointer-events-none" />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">

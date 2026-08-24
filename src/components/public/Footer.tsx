@@ -23,44 +23,6 @@ export function Footer() {
 
       {/* Main Container - Exactly matching Header Width (1480px + xl:px-12) */}
       <div className="max-w-[1480px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12">
-        
-        {/* Top Pre-Footer Call-to-Action Strip */}
-        <div className="pt-12 pb-10 border-b border-slate-800/80">
-          <div className="bg-gradient-to-r from-slate-900 via-slate-900/90 to-slate-950 border border-slate-800 p-6 sm:p-8 rounded-sm shadow-xl flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6 relative overflow-hidden">
-            <div className="absolute -right-8 -bottom-8 w-48 h-48 bg-amber-500/10 rounded-full blur-2xl pointer-events-none" />
-            
-            <div className="space-y-1.5 max-w-2xl">
-              <span className="inline-flex items-center gap-1.5 text-xs font-mono font-bold text-amber-400 uppercase tracking-wider">
-                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                Heavy Industrial Turnarounds & Plant Construction
-              </span>
-              <h2 className="text-xl sm:text-2xl lg:text-3xl font-heading font-black text-white uppercase tracking-tight leading-tight">
-                Executing Critical Infrastructure Across Eastern India
-              </h2>
-              <p className="text-xs sm:text-sm text-slate-400 font-sans leading-relaxed">
-                From 1,000+ MT structural steel packages and high-pressure alloy piping to mobilising 500+ tested tradesmen in 72 hours.
-              </p>
-            </div>
-
-            <div className="flex flex-wrap items-center gap-3 w-full lg:w-auto flex-shrink-0">
-              <Link
-                href="/contact"
-                className="flex-1 sm:flex-none inline-flex items-center justify-center gap-2 px-5 py-3 bg-amber-500 hover:bg-amber-400 text-slate-950 text-xs font-heading font-bold uppercase tracking-wider rounded-xs transition-all shadow-md active:scale-95 whitespace-nowrap"
-              >
-                <span>Request Project Quotation</span>
-                <ArrowRight className="w-4 h-4" weight="bold" />
-              </Link>
-              <Link
-                href="/manpower"
-                className="flex-1 sm:flex-none inline-flex items-center justify-center gap-2 px-5 py-3 bg-slate-800 hover:bg-slate-700 text-amber-400 border border-amber-400/30 text-xs font-heading font-bold uppercase tracking-wider rounded-xs transition-all shadow-md active:scale-95 whitespace-nowrap"
-              >
-                <HardHat className="w-4 h-4 text-amber-400" />
-                <span>Mobilize Skilled Manpower</span>
-              </Link>
-            </div>
-          </div>
-        </div>
-
         {/* 4-Column Main Industrial Footer Grid (Fully Spanning Left-to-Right) */}
         <div className="py-12 lg:py-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 lg:gap-10 border-b border-slate-800/80">
           
