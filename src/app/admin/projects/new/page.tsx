@@ -3,6 +3,7 @@ import Link from "next/link";
 import { createProjectAction } from "@/app/actions/projectActions";
 import { ArrowLeft, Plus } from "@phosphor-icons/react/dist/ssr";
 import { ImagePickerInput } from "@/components/admin/ImagePickerInput";
+import { MultiImagePickerInput } from "@/components/admin/MultiImagePickerInput";
 
 export default async function NewProjectPage() {
   const categories = await db.projectCategory.findMany({
@@ -128,16 +129,23 @@ export default async function NewProjectPage() {
             </div>
           </div>
 
-          {/* Project Primary Cover Photo */}
-          <div className="p-4 bg-slate-50 border border-slate-200 rounded-sm space-y-2">
+          {/* Project Primary Cover Photo & Multi-Image Gallery */}
+          <div className="p-4 bg-slate-50 border border-slate-200 rounded-sm space-y-4">
             <span className="text-xs font-mono font-bold text-amber-600 uppercase tracking-wider block">
-              Visual Presentation & Gallery
+              Visual Presentation & Multi-Photo Gallery
             </span>
             <ImagePickerInput
               name="coverImageUrl"
               label="Primary Project Cover Photo (Featured Image)"
               category="project"
             />
+            <div className="pt-3 border-t border-slate-200">
+              <MultiImagePickerInput
+                name="galleryImages"
+                label="Project Photo Gallery (Multiple Uploads / Multi-Select from Supabase)"
+                category="project"
+              />
+            </div>
           </div>
 
           <div>

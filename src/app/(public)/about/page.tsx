@@ -143,8 +143,7 @@ export default function AboutPage() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div className="relative rounded-sm overflow-hidden border border-slate-300 bg-slate-900 h-80 sm:h-96 shadow-md flex items-end p-4 sm:p-5 group">
             <div
-              className="absolute inset-0 bg-cover bg-center group-hover:scale-105 transition-transform duration-700"
-              style={{ backgroundImage: `url('/images/fabrication-workshop.webp')` }}
+              className="absolute inset-0 bg-cover bg-center group-hover:scale-105 transition-transform duration-700 bg-[url('/images/fabrication-workshop-mobile.webp')] sm:bg-[url('/images/fabrication-workshop.webp')]"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/40 to-transparent" />
             <div className="relative z-10 w-full space-y-1.5 bg-slate-950/80 border border-slate-700/80 p-3.5 rounded-sm shadow-xl backdrop-blur-md">
@@ -162,8 +161,7 @@ export default function AboutPage() {
 
           <div className="relative rounded-sm overflow-hidden border border-slate-300 bg-slate-900 h-80 sm:h-96 shadow-md flex items-end p-4 sm:p-5 group">
             <div
-              className="absolute inset-0 bg-cover bg-center group-hover:scale-105 transition-transform duration-700"
-              style={{ backgroundImage: `url('/images/plant-maintenance-shutdown.webp')` }}
+              className="absolute inset-0 bg-cover bg-center group-hover:scale-105 transition-transform duration-700 bg-[url('/images/plant-maintenance-shutdown-mobile.webp')] sm:bg-[url('/images/plant-maintenance-shutdown.webp')]"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/40 to-transparent" />
             <div className="relative z-10 w-full space-y-1.5 bg-slate-950/80 border border-slate-700/80 p-3.5 rounded-sm shadow-xl backdrop-blur-md">
@@ -181,8 +179,7 @@ export default function AboutPage() {
 
           <div className="relative rounded-sm overflow-hidden border border-slate-300 bg-slate-900 h-80 sm:h-96 shadow-md flex items-end p-4 sm:p-5 group">
             <div
-              className="absolute inset-0 bg-cover bg-center group-hover:scale-105 transition-transform duration-700"
-              style={{ backgroundImage: `url('/images/turbine-machinery-erection.webp')` }}
+              className="absolute inset-0 bg-cover bg-center group-hover:scale-105 transition-transform duration-700 bg-[url('/images/turbine-machinery-erection-mobile.webp')] sm:bg-[url('/images/turbine-machinery-erection.webp')]"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/40 to-transparent" />
             <div className="relative z-10 w-full space-y-1.5 bg-slate-950/80 border border-slate-700/80 p-3.5 rounded-sm shadow-xl backdrop-blur-md">

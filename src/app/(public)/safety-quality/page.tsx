@@ -121,8 +121,7 @@ export default function SafetyQualityPage() {
           {/* Card 1: Tool-box talk */}
           <div className="relative rounded-sm overflow-hidden border border-slate-300 bg-slate-900 h-80 sm:h-96 shadow-lg flex items-end p-4 sm:p-5 group">
             <div
-              className="absolute inset-0 bg-cover bg-center group-hover:scale-105 transition-transform duration-700"
-              style={{ backgroundImage: `url('/images/safety-toolbox-talk.webp')` }}
+              className="absolute inset-0 bg-cover bg-center group-hover:scale-105 transition-transform duration-700 bg-[url('/images/safety-toolbox-talk-mobile.webp')] sm:bg-[url('/images/safety-toolbox-talk.webp')]"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/40 to-transparent" />
             <div className="relative z-10 w-full space-y-1.5 bg-slate-950/80 border border-slate-700/80 p-3.5 rounded-sm shadow-xl backdrop-blur-md">
@@ -141,8 +140,7 @@ export default function SafetyQualityPage() {
           {/* Card 2: On-site Inspection in Paradeep */}
           <div className="relative rounded-sm overflow-hidden border border-slate-300 bg-slate-900 h-80 sm:h-96 shadow-lg flex items-end p-4 sm:p-5 group">
             <div
-              className="absolute inset-0 bg-cover bg-center group-hover:scale-105 transition-transform duration-700"
-              style={{ backgroundImage: `url('/images/safety-inspection-odisha.webp')` }}
+              className="absolute inset-0 bg-cover bg-center group-hover:scale-105 transition-transform duration-700 bg-[url('/images/safety-inspection-odisha-mobile.webp')] sm:bg-[url('/images/safety-inspection-odisha.webp')]"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/40 to-transparent" />
             <div className="relative z-10 w-full space-y-1.5 bg-slate-950/80 border border-slate-700/80 p-3.5 rounded-sm shadow-xl backdrop-blur-md">

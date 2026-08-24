@@ -125,8 +125,7 @@ export default function ManpowerPage() {
         {/* Workforce Site Photography Showcase Banner */}
         <div className="relative rounded-sm overflow-hidden border border-slate-300 bg-slate-900 h-80 sm:h-[440px] shadow-xl flex items-end p-4 sm:p-8">
           <div
-            className="absolute inset-0 bg-cover bg-center"
-            style={{ backgroundImage: `url('/images/manpower-crew-team.webp')` }}
+            className="absolute inset-0 bg-cover bg-center bg-[url('/images/manpower-crew-team-mobile.webp')] sm:bg-[url('/images/manpower-crew-team.webp')]"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-slate-950/40 via-transparent to-transparent" />
           <div className="relative z-10 space-y-2 max-w-xl text-white bg-slate-950/90 border border-slate-700/80 p-5 sm:p-6 rounded-sm shadow-2xl backdrop-blur-md">
